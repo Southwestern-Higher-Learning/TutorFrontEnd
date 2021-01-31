@@ -17,6 +17,7 @@ export const HonorCodeScreen = ({name, navigation})=>{
             </Text>
             <View>
             <Button
+            onPress={()=>navigation.navigate('HomeTabs')}
             title="Yes"
             />
             <Button
