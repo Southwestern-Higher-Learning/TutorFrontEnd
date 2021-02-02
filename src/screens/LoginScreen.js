@@ -15,7 +15,8 @@ export const LoginScreen = ({navigation})=>{
               `&redirect_uri=${encodeURIComponent(redirectUrl)}` +
               `&response_type=code` +
               `&access_type=offline` +
-              `&scope=profile`,
+              `&scope=profile` + 
+              `&prompt=consent`,
           });
         console.log(result);
     }
