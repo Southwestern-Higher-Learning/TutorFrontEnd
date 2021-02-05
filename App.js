@@ -13,7 +13,7 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="LoginScreen" component={LoginScreen} options={{title: "Log in"}}/>
+        <Stack.Screen name="LoginScreen" component={LoginScreen} options={{title: "Southwestern Higher Learning"}}/>
         <Stack.Screen name="HonorCodeScreen" component={HonorCodeScreen} options={{title: "Honor Code"}}/>
         <Stack.Screen name="HomeTabs" component={HomeTabs} options={{ headerShown: false }}/>
       </Stack.Navigator>
