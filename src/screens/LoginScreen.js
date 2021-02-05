@@ -9,7 +9,7 @@ export const LoginScreen = ({navigation})=>{
     return (
         <View style={styles.container}>
             <Text>Login Screen</Text>
-            <Button
+            <Button 
                 onPress={()=>navigation.navigate('HonorCodeScreen')}
                 title="Log in"
                 accessibilityLabel="Learn more about this purple button"
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: "#f3f3f3"
+        backgroundColor: "#ffcd03"
 
     }
 })
