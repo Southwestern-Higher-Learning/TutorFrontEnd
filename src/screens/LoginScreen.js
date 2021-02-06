@@ -1,8 +1,13 @@
 import React from 'react';
+
 import {View, Text, StyleSheet, Pressable, ImageBackground} from 'react-native';
 
 
+
 export const LoginScreen = ({navigation})=>{
+
+
+
     return (
         <View style={styles.container}>
             <ImageBackground
@@ -28,6 +33,7 @@ export const LoginScreen = ({navigation})=>{
 
             </Pressable>
             </View>
+
         </View>
     )
 }
@@ -35,6 +41,7 @@ export const LoginScreen = ({navigation})=>{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+
         alignItems: 'center',
         justifyContent: 'center',
 
@@ -81,7 +88,10 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         position: 'absolute',
         top: 30,
-
+    },
+    imageBox: {
+        height: 200,
+        width: 200
     }
 
 })
