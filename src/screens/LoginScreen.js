@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, Text, StyleSheet, Button} from 'react-native'
-import * as AuthSession from 'expo-auth-session';
 
 
 export const LoginScreen = ({navigation})=>{
