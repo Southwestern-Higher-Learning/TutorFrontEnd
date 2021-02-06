@@ -26,7 +26,9 @@ export const LoginScreen = ({navigation})=>{
             <Pressable
                 style={styles.button}
                 onPress={()=>{
-                    navigation.navigate('HonorCodeScreen')
+                    navigation.navigate('HonorCodeScreen', {
+                        userName: null
+                    })
                 }}
             >
                 <Text style={styles.buttonText}>Log in</Text>

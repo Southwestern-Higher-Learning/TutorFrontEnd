@@ -15,7 +15,7 @@ function App() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="LoginScreen" component={LoginScreen} options={{title: "Southwestern Higher Learning", headerStyle:{backgroundColor: '#ffcd20'}}}/>
-          <Stack.Screen name="HonorCodeScreen" component={HonorCodeScreen} options={{title: "Honor Code"}}/>
+          <Stack.Screen name="HonorCodeScreen" component={HonorCodeScreen} options={{title: "Honor Code", headerStyle:{backgroundColor: '#ffcd20'}}}/>
           <Stack.Screen name="HomeTabs" component={HomeTabs} options={{ headerShown: false }}/>
         </Stack.Navigator>
       </NavigationContainer>
