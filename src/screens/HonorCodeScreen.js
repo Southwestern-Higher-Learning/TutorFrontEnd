@@ -8,7 +8,7 @@ export const HonorCodeScreen = ({route, navigation})=>{
         <View style={styles.container}>
             {route.params.userName ? <Text>Welcome {route.params.userName}</Text>: null}
             <Text style={styles.text}>
-                This application was developed to support the Southwestern Community with cooperation from the Center for Academic Success. As such, the restrictions outlined in the Southwestern University Honor Code and the Student handbook. Any actions you take within the application are still subject to the Honor Code and Student Handbook. 
+                This application was developed to support the Southwestern Community with cooperation from the Center for Academic Success. As such, the restrictions outlined in the Southwestern University Honor Code and the Student handbook apply to any actions you take within the application.
             </Text>
             <View style={styles.inner}>
             <Text style={styles.text}>
