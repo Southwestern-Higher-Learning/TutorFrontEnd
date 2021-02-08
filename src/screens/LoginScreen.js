@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, Button} from 'react-native'
-
+import * as AuthSession from 'expo-auth-session'
 
 export const LoginScreen = ({navigation})=>{
 
@@ -9,6 +9,7 @@ export const LoginScreen = ({navigation})=>{
         const infoResponse = await fetch('https://tutor.jakegut.com/auth/code/url')
         const info = await infoResponse.json()
         const redirectUrl = AuthSession.makeRedirectUri({useProxy: true});
+        console.log(redirectUrl);
         let result = await AuthSession.startAsync({
             authUrl:
               `https://accounts.google.com/o/oauth2/auth?` +
