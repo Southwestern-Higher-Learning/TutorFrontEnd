@@ -4,14 +4,22 @@ import { createStackNavigator } from '@react-navigation/stack';
 import {LoginScreen} from './src/screens/LoginScreen';
 import {HonorCodeScreen} from './src/screens/HonorCodeScreen';
 import {HomeTabs} from './src/navigators/HomeTabs';
-import { setStatusBarBackgroundColor } from 'expo-status-bar';
-
-
+import * as Font from 'expo-font';
+import AppLoading from 'expo-app-loading';
+import { Ionicons } from '@expo/vector-icons';
 
 const Stack = createStackNavigator();
 
 function App() {
-  return (
+  let [loaded] = Font.useFonts({
+    ionicons: Ionicons.font['ionicons']
+  })
+
+  
+  if(!loaded){
+    return <AppLoading />
+  } else {
+    return (
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="LoginScreen" component={LoginScreen} options={{title: "Southwestern Higher Learning", headerStyle:{backgroundColor: '#ffcd20'}}}/>
@@ -19,6 +27,8 @@ function App() {
           <Stack.Screen name="HomeTabs" component={HomeTabs} options={{ headerShown: false }}/>
         </Stack.Navigator>
       </NavigationContainer>
-  );
+    );
+  }
+  
 } 
 export default App;
