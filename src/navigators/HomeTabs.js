@@ -17,8 +17,7 @@ export const HomeTabs = ()=>{
         >
             <Tab.Screen name="Home" component={HomeScreen} 
             options={{
-                tabBarLabel: 'Home',
-                tabBarIcon: ({color})=>(<MaterialCommunityIcons name="home" color={color} size={26} />)
+                tabBarLabel: 'Home'
             }}
             />
             <Tab.Screen name="Search" component={SearchScreen} />

@@ -63,5 +63,5 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    text: {width: '80%', textAlign: 'justify', fontSize: 17, fontWeight: '300'}
+    text: {width: '80%', textAlign: 'center', fontSize: 17, fontWeight: '300'}
 })

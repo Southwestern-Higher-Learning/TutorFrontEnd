@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {View, Text, StyleSheet, Pressable, ImageBackground} from 'react-native';
+import {View, Text, StyleSheet, Pressable, ImageBackground, Image} from 'react-native';
 
 
 
@@ -18,10 +18,13 @@ export const LoginScreen = ({navigation})=>{
                 source={require('../../assets/Gradient.jpg')}
                 style={styles.imageGradient}
             />
-            <ImageBackground
-                source={require('../../assets/CrestNameLogoWhite.png')}
+            <View style={styles.imageBox}>
+            <Image
+                source={require('../../assets/tower_with_name.png')}
                 style={styles.logo}
             />
+            </View>
+            
             <View style={styles.buttonContainer}>
             <Pressable
                 style={styles.button}
@@ -31,7 +34,7 @@ export const LoginScreen = ({navigation})=>{
                     })
                 }}
             >
-                <Text style={styles.buttonText}>Log in</Text>
+                <Text style={styles.buttonText}>Log In</Text>
 
             </Pressable>
             </View>
@@ -43,33 +46,32 @@ export const LoginScreen = ({navigation})=>{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-
         alignItems: 'center',
         justifyContent: 'center',
 
     },
     buttonContainer: {
         position: 'absolute',
-        bottom: 90,
         alignItems: 'center',
         width: '100%',
         padding: 10,
     },
     button: {
         height: 45,
-        width: '80%',
+        width: '36%',
         opacity: 0.9,
         borderRadius: 23, 
-        borderColor: 'black',
         backgroundColor: '#ffcd20',
         justifyContent: 'center',
         alignItems: 'center',
+        position: 'relative',
+        top: 20
     },
     buttonText: {
         fontSize: 30,
-        fontStyle: 'italic',
-        fontWeight: '500',
-        textTransform: 'uppercase',
+        fontWeight: '400',
+        opacity: 1,
+        fontStyle: 'italic'
     },
     image: {
         width:'100%',
@@ -85,15 +87,15 @@ const styles = StyleSheet.create({
         opacity: 0.40,
     },
     logo: {
-        height: 275,
-        width: 375,
-        resizeMode: 'contain',
-        position: 'absolute',
-        top: 30,
+        height: 155,
+        width: 305,
+        resizeMode: 'cover',
+        position: 'absolute'
     },
     imageBox: {
-        height: 200,
-        width: 200
+        position: 'relative',
+        bottom: 175,
+        right: 150,
     }
 
 })
