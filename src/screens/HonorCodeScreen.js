@@ -1,9 +1,13 @@
 import React from 'react';
 import {View, StyleSheet, Text, Button} from 'react-native'
 import Hyperlink from 'react-native-hyperlink'
-
+import { LoginUser } from '../providers/LoginUser'
+import { useUser } from '../providers/UserContextProvider'
 
 export const HonorCodeScreen = ({route, navigation})=>{
+    const { dispatch } = useUser()
+
+    
     return (
         <View style={styles.container}>
             {route.params.userName ? <Text>Welcome {route.params.userName}</Text>: null}
@@ -32,7 +36,13 @@ export const HonorCodeScreen = ({route, navigation})=>{
                         style={styles.decisionBox}
                     >
                         <Button
-                        onPress={()=>navigation.navigate('HomeTabs')}
+                        onPress={()=>{
+                            LoginUser().then(response=>{
+                                // secure store refresh token
+                                dispatch({message: "SET", payload: response})
+                                navigation.navigate('HomeTabs')
+                            })
+                        }}
                         title="Yes"
                         />
                         <Button
