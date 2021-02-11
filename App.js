@@ -7,6 +7,7 @@ import {HomeTabs} from './src/navigators/HomeTabs';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import { Ionicons } from '@expo/vector-icons';
+import ProviderComponent from './src/providers/UserContextProvider'
 
 const Stack = createStackNavigator();
 
@@ -20,6 +21,7 @@ function App() {
     return <AppLoading />
   } else {
     return (
+      <ProviderComponent>
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="LoginScreen" component={LoginScreen} options={{title: "Southwestern Higher Learning", headerStyle:{backgroundColor: '#ffcd20'}}}/>
@@ -27,6 +29,7 @@ function App() {
           <Stack.Screen name="HomeTabs" component={HomeTabs} options={{ headerShown: false }}/>
         </Stack.Navigator>
       </NavigationContainer>
+      </ProviderComponent>
     );
   }
   
