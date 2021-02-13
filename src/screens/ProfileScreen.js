@@ -84,7 +84,7 @@ image: {
     resizeMode: 'contain',
 },
 userNameText: {
-    fontSize: 30,
+    fontSize: 25,
     fontWeight: '400',
 },
 buttonsContainer: {
