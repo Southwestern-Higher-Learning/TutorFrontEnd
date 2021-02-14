@@ -13,7 +13,9 @@ const Stack = createStackNavigator();
 
 function App() {
   let [loaded] = Font.useFonts({
-    ionicons: Ionicons.font['ionicons']
+    ionicons: Ionicons.font['ionicons'],
+    PlayfairDisplayBold: require('./assets/fonts/PlayfairDisplay-Bold.otf'),
+    PlayfairDisplay: require('./assets/fonts/PlayfairDisplay-Regular.otf'),
   })
 
   

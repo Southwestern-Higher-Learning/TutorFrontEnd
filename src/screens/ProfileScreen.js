@@ -1,10 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
-import { useUser } from '../providers/UserContextProvider'
+import { useUser } from '../providers/UserContextProvider';
+import { ReviewItem } from '../components/ReviewItem.js'
+
 
 
 export const ProfileScreen = () => {
-
+    
     const { state } = useUser()
     
     return (
@@ -36,10 +38,19 @@ export const ProfileScreen = () => {
                 </View>
             </View>
             <View style={styles.aboutMeContainer}>
-
+                <Text style={styles.aboutMeTitle}> 
+                    About Me
+                </Text>
+                <Text style={styles.aboutMeText}>
+                    This is a paragraph talking about myself. This is me testing what is going to happen if the text is super long and if its going to wrap around.
+                </Text>
             </View>
             <View style={styles.reviewsContainer}>
-
+                <Text style={styles.reviewsText}>Reviews</Text>
+                <ReviewItem
+                    reviewText={" Ethan was the worst Tutor that I have ever had ever!!!"}
+                    starCount={"☆ ☆ ☆ ☆"}
+                />
             </View>
         </View>
         
@@ -54,7 +65,7 @@ screenContainer: {
     backgroundColor: '#FBFBF8',
 },
 headerContainer: {
-    flex: 1,
+    flex: 1.25,
     width: '100%',
     alignItems: 'center',
     justifyContent: 'flex-end',
@@ -63,10 +74,10 @@ headerContainer: {
 headerText: {
     fontSize: 30,
     fontWeight: '400',
-    fontStyle: 'italic',
+    fontFamily: 'PlayfairDisplay',
 },
 userNameContainer: {
-    flex: 2,
+    flex: 3,
     flexDirection: 'row',
     width: '100%',
     alignItems: 'center',
@@ -115,12 +126,24 @@ aboutMeContainer: {
     flex: 4,
     width: '100%',
     alignItems: 'center',
-    justifyContent: 'center',
+},
+aboutMeTitle: {
+    alignItems: 'center',
+    fontSize: 20,
+    fontWeight: 'bold',
+},
+aboutMeText:{
+    fontSize: 15,
 },
 reviewsContainer: {
     flex: 4,
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
+},
+reviewsText: {
+    alignItems: 'center',
+    fontSize: 20,
+    fontWeight: 'bold',
 }
 })
