@@ -8,7 +8,9 @@ import { ReviewItem } from '../components/ReviewItem.js'
 export const ProfileScreen = () => {
     
     const { state } = useUser()
-    
+    // at it's current state, reviews with be a flat list and we'll iterate through the reviews to create a horizontal flat list that the user can swipe through
+    // the styling is still part way done. We think we'll use some card style for the text data. Mostly we're just working on the logic
+
     return (
         
         <View style={styles.screenContainer}>
