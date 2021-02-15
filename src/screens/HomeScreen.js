@@ -48,7 +48,8 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     textOverGradient: {
-        color: 'white'
+        color: 'white', 
+        fontFamily: 'HKGroteskRegular'
     },
     helpfulInfo: {
         marginTop: 20,

@@ -16,6 +16,9 @@ function App() {
     ionicons: Ionicons.font['ionicons'],
     PlayfairDisplayBold: require('./assets/fonts/PlayfairDisplay-Bold.otf'),
     PlayfairDisplay: require('./assets/fonts/PlayfairDisplay-Regular.otf'),
+    HKGroteskRegular: require('./assets/fonts/HKGrotesk-Regular.otf'),
+    HKGroteskBold: require('./assets/fonts/HKGrotesk-Bold.otf'),
+    HKGroteskSemiBold: require('./assets/fonts/HKGrotesk-SemiBold.otf'),
   })
 
   

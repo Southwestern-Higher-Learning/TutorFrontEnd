@@ -71,7 +71,8 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: '400',
         opacity: 1,
-        fontStyle: 'italic'
+        fontStyle: 'italic',
+        fontFamily: 'HKGroteskRegular',
     },
     image: {
         width:'100%',
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
         height: 155,
         width: 305,
         resizeMode: 'cover',
-        position: 'absolute'
+        position: 'absolute',
     },
     imageBox: {
         position: 'relative',
