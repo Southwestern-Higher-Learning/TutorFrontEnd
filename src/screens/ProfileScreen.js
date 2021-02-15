@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { useUser } from '../providers/UserContextProvider';
 import { ReviewItem } from '../components/ReviewItem.js'
+import { CardItem } from '../components/CardItem'
 
 
 
@@ -39,14 +40,10 @@ export const ProfileScreen = () => {
                     <Text style={styles.buttonText}>Schedule</Text>
                 </View>
             </View>
-            <View style={styles.aboutMeContainer}>
-                <Text style={styles.aboutMeTitle}> 
-                    About Me
-                </Text>
-                <Text style={styles.aboutMeText}>
-                    This is a paragraph talking about myself. This is me testing what is going to happen if the text is super long and if its going to wrap around.
-                </Text>
-            </View>
+            <CardItem 
+            textContent={"Some text talking about what subjects I tutor and where I'm physically when I offer tutoring services in person"}
+            cardName={"about me"}
+            />
             <View style={styles.reviewsContainer}>
                 <Text style={styles.reviewsText}>Reviews</Text>
                 <ReviewItem
@@ -145,6 +142,8 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
+        position: 'relative',
+        top: 40
     },
     reviewsText: {
         alignItems: 'center',
