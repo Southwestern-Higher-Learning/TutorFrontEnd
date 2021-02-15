@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
 import { useUser } from '../providers/UserContextProvider';
 import { ReviewItem } from '../components/ReviewItem.js'
 import { CardItem } from '../components/CardItem'
@@ -7,7 +7,23 @@ import { CardItem } from '../components/CardItem'
 
 
 export const ProfileScreen = () => {
-    
+    const tempReviewList = [
+        {reviewText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque rhoncus nec mi quis scelerisque. In consequat libero feugiat dolor varius, ut mollis ante mollis. Morbi malesuada tincidunt risus id aliquet. Aenean condimentum, nunc a dignissim imperdiet, lacus orci ornare risus, at elementum tellus purus et quam. Sed rhoncus, elit pulvinar convallis blandit, velit dolor fermentum tortor, vitae placerat sem neque et eros.",
+        starCount: "☆ ☆ ☆ ☆",
+        id: '0'},
+        {reviewText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque rhoncus nec mi quis scelerisque. In consequat libero feugiat dolor varius, ut mollis ante mollis. Morbi malesuada tincidunt risus id aliquet. Aenean condimentum, nunc a dignissim imperdiet, lacus orci ornare risus, at elementum tellus purus et quam. Sed rhoncus, elit pulvinar convallis blandit, velit dolor fermentum tortor, vitae placerat sem neque et eros.",
+        starCount: "☆ ☆ ☆ ☆",
+        id: '1'},
+        {reviewText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque rhoncus nec mi quis scelerisque. In consequat libero feugiat dolor varius, ut mollis ante mollis. Morbi malesuada tincidunt risus id aliquet. Aenean condimentum, nunc a dignissim imperdiet, lacus orci ornare risus, at elementum tellus purus et quam. Sed rhoncus, elit pulvinar convallis blandit, velit dolor fermentum tortor, vitae placerat sem neque et eros.",
+        starCount: "☆ ☆ ☆ ☆",
+        id: '2'},
+        {reviewText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque rhoncus nec mi quis scelerisque. In consequat libero feugiat dolor varius, ut mollis ante mollis. Morbi malesuada tincidunt risus id aliquet. Aenean condimentum, nunc a dignissim imperdiet, lacus orci ornare risus, at elementum tellus purus et quam. Sed rhoncus, elit pulvinar convallis blandit, velit dolor fermentum tortor, vitae placerat sem neque et eros.",
+        starCount: "☆ ☆ ☆ ☆",
+        id: '3'},
+        {reviewText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque rhoncus nec mi quis scelerisque. In consequat libero feugiat dolor varius, ut mollis ante mollis. Morbi malesuada tincidunt risus id aliquet. Aenean condimentum, nunc a dignissim imperdiet, lacus orci ornare risus, at elementum tellus purus et quam. Sed rhoncus, elit pulvinar convallis blandit, velit dolor fermentum tortor, vitae placerat sem neque et eros.",
+        starCount: "☆ ☆ ☆ ☆",
+        id: '4'}
+    ]
     const { state } = useUser()
     // at it's current state, reviews with be a flat list and we'll iterate through the reviews to create a horizontal flat list that the user can swipe through
     // the styling is still part way done. We think we'll use some card style for the text data. Mostly we're just working on the logic
@@ -24,12 +40,12 @@ export const ProfileScreen = () => {
                         source={{uri: state.user.profile_url}}
                         style={styles.image}
                     />
-                    
                 </View>
-                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', flex: 2}}>
                     <Text style={styles.userNameText}>
                         {state.user.first_name} {state.user.last_name}
                     </Text>
+                    {state.user.is_tutor? <Text style={styles.tutorText}>Southwestern academic guide</Text> : null}
                 </View> 
             </View>
             <View style={styles.buttonsContainer}>
@@ -40,17 +56,26 @@ export const ProfileScreen = () => {
                     <Text style={styles.buttonText}>Schedule</Text>
                 </View>
             </View>
-            <CardItem 
-            textContent={"Some text talking about what subjects I tutor and where I'm physically when I offer tutoring services in person"}
-            cardName={"about me"}
-            />
-            <View style={styles.reviewsContainer}>
-                <Text style={styles.reviewsText}>Reviews</Text>
-                <ReviewItem
-                    reviewText={" Ethan was the worst Tutor that I have ever had ever!!!"}
-                    starCount={"☆ ☆ ☆ ☆"}
+            <View style={styles.aboutMeContainer}>
+                <CardItem 
+                textContent={"Some text talking about what subjects I tutor and where I'm physically when I offer tutoring services in person. I tutor in computer science, mathematics. I'm a junior graduating spring of '22"}
+                cardName={"about me"}
                 />
             </View>
+            
+            <View style={styles.reviewsContainer}>
+                <FlatList 
+                horizontal
+                data={tempReviewList}
+                keyExtractor={result => result.id}
+                showsHorizontalScrollIndicator={false}
+                renderItem={( {item} )=>{
+                    return <ReviewItem reviewText={item.reviewText} starCount={item.starCount}/>
+                }}
+                />
+            </View>
+            
+           
         </View>
         
     )
@@ -64,7 +89,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FBFBF8',
     },
     headerContainer: {
-        flex: 1.25,
+        flex: 1,
         width: '100%',
         alignItems: 'center',
         justifyContent: 'flex-end',
@@ -76,7 +101,7 @@ const styles = StyleSheet.create({
         fontFamily: 'PlayfairDisplay',
     },
     userNameContainer: {
-        flex: 3,
+        flex: 2,
         flexDirection: 'row',
         width: '100%',
         alignItems: 'center',
@@ -85,16 +110,18 @@ const styles = StyleSheet.create({
     userImage:{
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'flex-end',
     },
     image: {
         height: 100,
         width: 100,
         borderRadius: 50,
         resizeMode: 'contain',
+        borderWidth: 2,
+        borderColor: '#828282'
     },
     userNameText: {
-        fontSize: 25,
+        fontSize: 22,
         fontWeight: '400',
         fontFamily: 'PlayfairDisplay'
     },
@@ -123,27 +150,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     aboutMeContainer: {
-        flex: 4,
+        flex: 2,
         width: '90%',
         alignItems: 'center',
     },
-    aboutMeTitle: {
-        flex: 0.25,
-        alignItems: 'center',
-        fontSize: 20,
-        fontFamily: 'PlayfairDisplayBold',
-    },
-    aboutMeText:{ // Need to work on this
-        fontSize: 15,
-        fontFamily: 'HKGroteskRegular',
-    },
     reviewsContainer: {
         flex: 4,
-        width: '100%',
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'relative',
-        top: 40
+        marginTop: 80,
     },
     reviewsText: {
         alignItems: 'center',
@@ -154,6 +167,10 @@ const styles = StyleSheet.create({
     buttonText: {
         fontFamily: 'HKGroteskSemiBold',
         fontSize: 20,
+    },
+    tutorText: {
+        fontSize: 10,
+        fontFamily: 'HKGroteskRegular',
+        fontWeight: '300'
     }
-    
 })

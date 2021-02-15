@@ -3,14 +3,13 @@ import {View, Text, StyleSheet} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 export const ReviewItem = ({reviewText, starCount}) => {
-
     return(
         <View style={styles.reviewContainer}>
+            <View style={styles.reviewTextContainer}>
+                <Text style={styles.reviewText}>"{reviewText}"</Text>
+            </View>
             <View style={styles.reviewStarContainer}>
                 <Text style={styles.stars}>{starCount}</Text>
-            </View>
-            <View style={styles.reviewTextContainer}>
-                <Text style={styles.reviewText}> {reviewText}</Text>
             </View>
         </View>
     );
@@ -19,18 +18,28 @@ export const ReviewItem = ({reviewText, starCount}) => {
 
 const styles = StyleSheet.create({
     reviewContainer: {
-        flex: 1,
-        justifyContent: 'center',         
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 150,
+        width: 300,
+        borderWidth: 2,
+        borderColor: '#828282',
+        borderRadius: 5,
+        marginHorizontal: 20
     },
     reviewTextContainer: {
-        flex: 10,
+        flex: 4,
+        padding: 10,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     reviewText: {
-        fontSize: 15,
+        fontSize: 16,
+        fontFamily: 'HKGroteskRegular'
     },
     reviewStarContainer: {
         flex: 1,
-        alignItems: 'center',
+        alignItems: 'flex-start',
     },
     stars: {
         fontSize: 12
