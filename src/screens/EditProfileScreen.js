@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Text, StyleSheet, View, TextInput, Pressable, TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native'
 import { useUser } from '../providers/UserContextProvider'
 import { CardItem } from '../components/CardItem'
+import {PressableButton} from '../components/PressableButton'
 
 export const EditProfileScreen = ({navigation})=>{
     const {state} = useUser()
@@ -25,9 +26,14 @@ export const EditProfileScreen = ({navigation})=>{
                 />
            
                 
-            <Text style={{textAlignVertical: 'top', fontSize: 16}}>{textValue.length}/240 characters</Text>
-            <View>
-                <Pressable />
+            <Text style={{textAlignVertical: 'top', fontSize: 16, paddingTop: 10}}>{textValue.length}/240 characters</Text>
+            <View style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 30}}>
+                <PressableButton 
+                buttonText={'Submit'}
+                actionOnPress={()=>{
+                    console.log('You pressed the submit button on the edit profile screen.')
+                }}
+                />
             </View>
         </ScrollView>
     )
@@ -39,12 +45,11 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     textBox: {
-        width: '80%',
+        width: '95%',
         marginTop: 40,
         borderColor: 'grey',
         borderWidth: 2,
         borderRadius: 5,
-        textAlignVertical: 'top',
-        fontSize: 16
+        fontSize: 16,
     }
 })
