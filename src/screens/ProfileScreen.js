@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
+import { View, Text, StyleSheet, Image, FlatList, Pressable } from 'react-native';
 import { useUser } from '../providers/UserContextProvider';
 import { ReviewItem } from '../components/ReviewItem.js'
 import { CardItem } from '../components/CardItem'
@@ -49,9 +49,13 @@ export const ProfileScreen = ({navigation}) => {
                 </View> 
             </View>
             <View style={styles.buttonsContainer}>
-                <View style={styles.editButton}>
+                <Pressable style={styles.editButton}
+                onPress={()=>{
+                    navigation.navigate('editProfile')
+                }}
+                >
                     <Text style={styles.buttonText}>Edit</Text>
-                </View>
+                </Pressable>
                 <View style={styles.scheduleButton}>
                     <Text style={styles.buttonText}>Schedule</Text>
                 </View>
