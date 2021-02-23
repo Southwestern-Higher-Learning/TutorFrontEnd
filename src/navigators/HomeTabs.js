@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { HomeScreen } from '../screens/HomeScreen'
-import { ProfileScreen } from '../screens/ProfileScreen'
+import {ProfileScreenStackNavigator} from '../navigators/ProfileScreenStackNavigator'
+import {HomeScreen} from '../screens/HomeScreen'
 import { SearchScreen } from '../screens/SearchScreen'
 import { Ionicons } from '@expo/vector-icons';
 const Tab = createMaterialBottomTabNavigator()
@@ -31,7 +31,7 @@ export const HomeTabs = ()=>{
                 )
             }}
             />
-            <Tab.Screen name="Profile" component={ProfileScreen} 
+            <Tab.Screen name="Profile" component={ProfileScreenStackNavigator} 
             options={{
                 tabBarLabel: 'Profile',
                 tabBarIcon: ({color}) => (

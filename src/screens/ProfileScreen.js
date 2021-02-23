@@ -6,7 +6,7 @@ import { CardItem } from '../components/CardItem'
 
 
 
-export const ProfileScreen = () => {
+export const ProfileScreen = ({navigation}) => {
     const tempReviewList = [
         {reviewText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque rhoncus nec mi quis scelerisque. In consequat libero feugiat dolor varius, ut mollis ante mollis. Morbi malesuada tincidunt risus id aliquet. Aenean condimentum, nunc a dignissim imperdiet, lacus orci ornare risus, at elementum tellus purus et quam. Sed rhoncus, elit pulvinar convallis blandit, velit dolor fermentum tortor, vitae placerat sem neque et eros.",
         starCount: "☆ ☆ ☆ ☆",
