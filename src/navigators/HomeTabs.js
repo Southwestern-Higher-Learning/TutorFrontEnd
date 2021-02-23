@@ -12,7 +12,7 @@ export const HomeTabs = ()=>{
         <Tab.Navigator
         initialRouteName="Home"
         activeColor="#000000"
-        inactiveColor="#828282"
+        inactiveColor="#FBFBF8"
         barStyle={{ backgroundColor: '#FFCD00'}}
         >
             <Tab.Screen name="Home" component={HomeScreen} 
