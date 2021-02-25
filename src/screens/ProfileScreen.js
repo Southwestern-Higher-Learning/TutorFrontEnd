@@ -1,12 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
+import { View, Text, StyleSheet, Image, FlatList, Pressable } from 'react-native';
 import { useUser } from '../providers/UserContextProvider';
 import { ReviewItem } from '../components/ReviewItem.js'
 import { CardItem } from '../components/CardItem'
 
 
 
-export const ProfileScreen = () => {
+export const ProfileScreen = ({navigation}) => {
     const tempReviewList = [
         {reviewText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque rhoncus nec mi quis scelerisque. In consequat libero feugiat dolor varius, ut mollis ante mollis. Morbi malesuada tincidunt risus id aliquet. Aenean condimentum, nunc a dignissim imperdiet, lacus orci ornare risus, at elementum tellus purus et quam. Sed rhoncus, elit pulvinar convallis blandit, velit dolor fermentum tortor, vitae placerat sem neque et eros.",
         starCount: "☆ ☆ ☆ ☆",
@@ -49,22 +49,27 @@ export const ProfileScreen = () => {
                 </View> 
             </View>
             <View style={styles.buttonsContainer}>
-                <View style={styles.editButton}>
+                <Pressable style={styles.editButton}
+                onPress={()=>{
+                    navigation.navigate('editProfile')
+                }}
+                >
                     <Text style={styles.buttonText}>Edit</Text>
-                </View>
+                </Pressable>
                 <View style={styles.scheduleButton}>
                     <Text style={styles.buttonText}>Schedule</Text>
                 </View>
             </View>
             <View style={styles.aboutMeContainer}>
                 <CardItem 
-                textContent={"Some text talking about what subjects I tutor and where I'm physically when I offer tutoring services in person. I tutor in computer science, mathematics. I'm a junior graduating spring of '22"}
+                textContent={state.user.description}
                 cardName={"about me"}
                 />
             </View>
             
             <View style={styles.reviewsContainer}>
                 <FlatList 
+                snapToAlignment={'top'}
                 horizontal
                 data={tempReviewList}
                 keyExtractor={result => result.id}
