@@ -62,13 +62,14 @@ export const ProfileScreen = ({navigation}) => {
             </View>
             <View style={styles.aboutMeContainer}>
                 <CardItem 
-                textContent={"Some text talking about what subjects I tutor and where I'm physically when I offer tutoring services in person. I tutor in computer science, mathematics. I'm a junior graduating spring of '22"}
+                textContent={state.user.description}
                 cardName={"about me"}
                 />
             </View>
             
             <View style={styles.reviewsContainer}>
                 <FlatList 
+                snapToAlignment={'top'}
                 horizontal
                 data={tempReviewList}
                 keyExtractor={result => result.id}

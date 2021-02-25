@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
-import {Text, StyleSheet, View, TextInput, Pressable, TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native'
+import {Text, StyleSheet, View, TextInput, ScrollView } from 'react-native'
 import { useUser } from '../providers/UserContextProvider'
 import { CardItem } from '../components/CardItem'
 import {PressableButton} from '../components/PressableButton'
+import { UpdateDescription } from '../providers/UpdateAboutMe'
 
 export const EditProfileScreen = ({navigation})=>{
     const {state} = useUser()
+    const {dispatch} = useUser()
     const [textValue, onChangeText] = useState(state.user.description ? state.user.description : 'Update your about me here')
 
     return (
@@ -30,8 +32,16 @@ export const EditProfileScreen = ({navigation})=>{
             <View style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 30}}>
                 <PressableButton 
                 buttonText={'Submit'}
-                actionOnPress={()=>{
-                    console.log('You pressed the submit button on the edit profile screen.')
+                actionOnPress={async()=>{
+                    // make http req (patch) to update about me
+                    const response = await UpdateDescription(textValue, state.access_token)
+                    console.log(response)
+                    if(response){
+                        dispatch({message: "SET_USER", payload: response})
+                        navigation.navigate('profile')
+                    }
+                    // load spinner icon
+                    // remove spinner icon once about is loaded (this will likely happen when we update the context)
                 }}
                 />
             </View>
