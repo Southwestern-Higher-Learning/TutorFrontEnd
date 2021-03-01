@@ -8,7 +8,7 @@ import { UpdateDescription } from '../providers/UpdateAboutMe'
 export const EditProfileScreen = ({navigation})=>{
     const {state} = useUser()
     const {dispatch} = useUser()
-    const [textValue, onChangeText] = useState(state.user.description ? state.user.description : 'Update your about me here')
+    const [textValue, onChangeText] = useState(state.user.description ? state.user.description : '' )
 
     return (
         <ScrollView contentContainerStyle={styles.container}
@@ -20,6 +20,7 @@ export const EditProfileScreen = ({navigation})=>{
             />
 
                 <TextInput 
+                    placeholder='About Me'
                     value={textValue}
                     onChangeText={text => onChangeText(text)}
                     style={styles.textBox}

@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, FlatList, Pressable } from 'react-native
 import { useUser } from '../providers/UserContextProvider';
 import { ReviewItem } from '../components/ReviewItem.js'
 import { CardItem } from '../components/CardItem'
+import { Ionicons } from '@expo/vector-icons';
 
 
 
@@ -27,6 +28,7 @@ export const ProfileScreen = ({navigation}) => {
     const { state } = useUser()
     // at it's current state, reviews with be a flat list and we'll iterate through the reviews to create a horizontal flat list that the user can swipe through
     // the styling is still part way done. We think we'll use some card style for the text data. Mostly we're just working on the logic
+    // still need to fix tutor icon being displayed for only tutors
 
     return (
         
@@ -43,9 +45,8 @@ export const ProfileScreen = ({navigation}) => {
                 </View>
                 <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', flex: 2}}>
                     <Text style={styles.userNameText}>
-                        {state.user.first_name} {state.user.last_name}
+                        {state.user.first_name} {state.user.last_name} {state.user.is_tutor? <Text style={styles.tutorText}> <Ionicons name="school" size={22}/> </Text> : <Text style={styles.tutorText}> <Ionicons name="school" size={18}/> </Text>}
                     </Text>
-                    {state.user.is_tutor? <Text style={styles.tutorText}>Southwestern academic guide</Text> : null}
                 </View> 
             </View>
             <View style={styles.buttonsContainer}>
@@ -63,11 +64,13 @@ export const ProfileScreen = ({navigation}) => {
             <View style={styles.aboutMeContainer}>
                 <CardItem 
                 textContent={state.user.description}
-                cardName={"about me"}
+                cardName={"About Me"}
                 />
             </View>
             
+
             <View style={styles.reviewsContainer}>
+                <Text style={{alignItems: 'center', fontSize: 22, padding: 5, fontFamily: 'PlayfairDisplayBold'}}>Reviews</Text>
                 <FlatList 
                 snapToAlignment={'top'}
                 horizontal
@@ -162,6 +165,7 @@ const styles = StyleSheet.create({
     reviewsContainer: {
         flex: 4,
         marginTop: 80,
+        alignItems: 'center'
     },
     reviewsText: {
         alignItems: 'center',
