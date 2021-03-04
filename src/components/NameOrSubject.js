@@ -13,7 +13,7 @@ export const NameOrSubject = ({selectionCallBack})=>{
             
             }}
             >
-                <Text style={!isActive ? styles.buttonTextActive : styles.buttonTextNotActive}>Tutor Subject</Text>
+                <Text style={!isActive ? styles.buttonTextActive : styles.buttonTextNotActive}>Subject</Text>
             </Pressable>
             <Pressable
             onPress={()=>{
@@ -21,7 +21,7 @@ export const NameOrSubject = ({selectionCallBack})=>{
                 selectionCallBack(!isActive)
             }}
             >
-                <Text style={isActive ? styles.buttonTextActive : styles.buttonTextNotActive}>Tutor Name</Text>
+                <Text style={isActive ? styles.buttonTextActive : styles.buttonTextNotActive}>Name</Text>
             </Pressable>
         </View>
     )
@@ -31,17 +31,20 @@ const styles = StyleSheet.create({
     container: {
         display: 'flex',
         flexDirection: 'row',
-        height: 24,
+        height: 'auto',
         justifyContent: 'space-evenly',
+        paddingTop: 5
     },
     buttonTextNotActive: {
         fontFamily: 'HKGroteskSemiBold',
         fontSize: 20,
-        color: 'gray'
+        color: 'gray',
+        textDecorationLine: 'none'
     },
     buttonTextActive: {
         fontFamily: 'HKGroteskSemiBold',
         fontSize: 20,
-        color: 'black'
+        color: 'black',
+        textDecorationLine: 'underline'
     }
 })

@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import { View, Text, StyleSheet, Pressable, Keyboard } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, Keyboard } from 'react-native';
 import { Searchbar } from 'react-native-paper'
 import {NameOrSubject} from '../components/NameOrSubject'
 
@@ -9,7 +9,7 @@ export const SearchScreen = () => {
         const onChangeSearch = query => setSearchQuery(query)
         const [isKeyboard, setIsKeyboard] = React.useState(false)
         const [isName, setIsName] = React.useState(false) // set to subject automatically, user can select to search for tutor by name
-        console.log(isName)
+        const [isLoading, setIsLoading] = React.useState(false)
         useEffect(()=>{
             Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
             Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
@@ -26,45 +26,54 @@ export const SearchScreen = () => {
         const _keyboardDidShow = ()=>{
             setIsKeyboard(true)
         }
-    return (    
-        <View style={{paddingTop: 40}}>
-            <Searchbar 
-                placeholder="Search for a tutor"
-                onChangeText={onChangeSearch}
-                value={searchQuery}
-                onSubmitEditing={Keyboard.dismiss}
-            />
-            {isKeyboard ? <NameOrSubject style={{paddingTop: 10}} selectionCallBack={setIsName}/> : null}
-        </View>
-    )
+
+        let loadedScreen = (
+            <View>
+                <View style={styles.headerContainer}>
+                    <Text style={styles.headerText}>Search</Text>
+                </View>
+                <View>
+                    <Searchbar 
+                        placeholder={isName ? "Search for tutor name" : "Search for tutor for subject"}
+                        onChangeText={onChangeSearch}
+                        value={searchQuery}
+                        onSubmitEditing={()=>{
+                            Keyboard.dismiss
+                            setIsLoading(true)
+                            setTimeout(()=>{setIsLoading(false)}, 2000)
+                            // need to make api call for user search
+                            
+                        }}
+                    />
+                    {isKeyboard ? <NameOrSubject selectionCallBack={setIsName}/> : null}
+                </View>
+            </View>
+        )
+        let loadingScreen = (
+            <View>
+                <View style={styles.headerContainer}>
+                    <Text style={styles.headerText}>Search</Text>
+                </View>
+                <View style={{paddingTop: 100}}>   
+                    <ActivityIndicator size="large" color="black" />
+                </View>
+            </View>
+        )
+    return isLoading ? loadingScreen : loadedScreen
 }
 
 const styles = StyleSheet.create({
-    buttonText: {
-        fontFamily: 'HKGroteskSemiBold',
-        fontSize: 20,
-    },
-    buttonsContainer: {
-        flex: 1,
-        flexDirection: 'row',
+    headerContainer: {
+        height: 70,
         width: '100%',
-        alignItems: 'stretch',
-    },
-    courseButtons: {
-        height: 45,
-        width: '36%',
-        borderRadius: 23, 
-        backgroundColor: '#8D8D8D',
-        justifyContent: 'center',
         alignItems: 'center',
+        justifyContent: 'flex-end',
+        backgroundColor: '#ffcd20',
     },
-    tutorButtons: {
-        height: 45,
-        width: '36%',
-        borderRadius: 23, 
-        backgroundColor: '#8D8D8D',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
+    headerText: {
+        fontSize: 30,
+        fontWeight: '400',
+        fontFamily: 'PlayfairDisplay',
+    }
     
 })
