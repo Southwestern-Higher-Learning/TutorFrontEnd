@@ -28,43 +28,19 @@ export const SearchScreen = () => {
         }
     return (    
         <View style={{paddingTop: 40}}>
+            
             <Searchbar 
-                placeholder="Search for a tutor"
+                placeholder={isName ? "Search Name" : "Search Subject"}
                 onChangeText={onChangeSearch}
                 value={searchQuery}
                 onSubmitEditing={Keyboard.dismiss}
             />
+             
             {isKeyboard ? <NameOrSubject style={{paddingTop: 10}} selectionCallBack={setIsName}/> : null}
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    buttonText: {
-        fontFamily: 'HKGroteskSemiBold',
-        fontSize: 20,
-    },
-    buttonsContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        width: '100%',
-        alignItems: 'stretch',
-    },
-    courseButtons: {
-        height: 45,
-        width: '36%',
-        borderRadius: 23, 
-        backgroundColor: '#8D8D8D',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    tutorButtons: {
-        height: 45,
-        width: '36%',
-        borderRadius: 23, 
-        backgroundColor: '#8D8D8D',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
     
 })

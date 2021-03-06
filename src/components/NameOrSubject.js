@@ -13,7 +13,9 @@ export const NameOrSubject = ({selectionCallBack})=>{
             
             }}
             >
-                <Text style={!isActive ? styles.buttonTextActive : styles.buttonTextNotActive}>Tutor Subject</Text>
+            <View style={!isActive ? styles.buttonTextActive : styles.buttonTextNotActive}> 
+                <Text style={!isActive ? styles.buttonTextPressed : styles.buttonTextNotPressed}>Subject</Text>
+            </View>
             </Pressable>
             <Pressable
             onPress={()=>{
@@ -21,7 +23,9 @@ export const NameOrSubject = ({selectionCallBack})=>{
                 selectionCallBack(!isActive)
             }}
             >
-                <Text style={isActive ? styles.buttonTextActive : styles.buttonTextNotActive}>Tutor Name</Text>
+            <View style={isActive ? styles.buttonTextActive : styles.buttonTextNotActive}> 
+                <Text style={isActive ? styles.buttonTextPressed : styles.buttonTextNotPressed}>Name</Text>
+            </View>
             </Pressable>
         </View>
     )
@@ -31,17 +35,34 @@ const styles = StyleSheet.create({
     container: {
         display: 'flex',
         flexDirection: 'row',
-        height: 24,
+        height: 30,
         justifyContent: 'space-evenly',
+        paddingTop: 5,
     },
     buttonTextNotActive: {
-        fontFamily: 'HKGroteskSemiBold',
-        fontSize: 20,
-        color: 'gray'
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 35,
+        width: 207,
+        backgroundColor: '#ffdd20',
     },
     buttonTextActive: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 35,
+        width: 207,
+        backgroundColor: '#ffcd20',
+        borderBottomWidth: 2,
+        borderBottomColor: 'black'
+    },
+    buttonTextNotPressed:{
         fontFamily: 'HKGroteskSemiBold',
         fontSize: 20,
-        color: 'black'
+        color: 'gray',
+    },
+    buttonTextPressed:{
+        fontFamily: 'HKGroteskSemiBold',
+        fontSize: 20,
+        color: 'black',
     }
 })
