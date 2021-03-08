@@ -1,52 +1,48 @@
 import * as AuthSession from 'expo-auth-session'
 import axios from 'axios'
 
-export const LoginUser= async () => {
-    let info
-    const infoResponse = await axios.get('https://tutor.jakegut.com/auth/code/url')
-    .then((response)=>{
-        if (response.status === 200){
-            info = response.data
-            const result = await startAsync()
-              if (result['errorCode'] === null) {
-                    axios.post('https://tutor.jakegut.com/auth/swap', {
-                    body: JSON.stringify({"code": result['params']['code'], "redirect_uri": redirectUrl}),
-                    Headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    
-                }).then((response)=>{
-                    if(response.status === 200){
-                        console.log(data)
-                        return response.data
-                    }
-                }, (error) => console.log(error))
-
-                }
-        } 
-    }).catch(err => console.log(err))
-    
-
-}
-
-
-const startAsync = async ()=>{
+export const LoginUser = async () => {
+    // initiate login process
+    const info = await getInitialRequest()
     const redirectUrl = AuthSession.makeRedirectUri({useProxy: true});
-    let result = AuthSession.startAsync({
-        authUrl:
-            `https://accounts.google.com/o/oauth2/auth?` +
-            `&client_id=${info['client_id']}` +
-            `&redirect_uri=${encodeURIComponent(redirectUrl)}` +
-            `&response_type=code` +
-            `&access_type=offline` +
-            `&scope=${encodeURIComponent(info['scopes'].join(' '))}` + 
-            `&prompt=consent`,
-        });
-    return result
+    try {
+        let result = await AuthSession.startAsync({
+            authUrl:
+                `https://accounts.google.com/o/oauth2/auth?` +
+                `&client_id=${info['client_id']}` +
+                `&redirect_uri=${encodeURIComponent(redirectUrl)}` +
+                `&response_type=code` +
+                `&access_type=offline` +
+                `&scope=${encodeURIComponent(info['scopes'].join(' '))}` + 
+                `&prompt=consent`,
+            })
+            if(result['errorCode'] === null){ // meaning there wasn't an error
+            console.log("there wasn't an error")
+            return axios({
+                method: 'POST',
+                url: 'https://tutor.jakegut.com/auth/swap',
+                data: JSON.stringify({"code": result['params']['code'], "redirect_uri": redirectUrl}),
+                headers: {
+                    'contentType': 'application/json'
+                }
+            })
+            .then(res => {return res.data})
+            .catch(err =>  {return Promise.reject(err)})
+            }
+            else{
+                return Promise.reject("There was an error initializing the auth session")
+            }
+    } catch (error) {
+        return Promise.reject("a valid reason, don't question it")
+    }
+    
 }
 
 
-
+const getInitialRequest = async ()=>{
+    const req = await axios.get('https://tutor.jakegut.com/auth/code/url')
+    return req.data
+}
 
 
 
@@ -54,7 +50,9 @@ export const LoginU = async (navigation) => {
 
     const infoResponse = await fetch('https://tutor.jakegut.com/auth/code/url')
     const info = await infoResponse.json()
+    console.log(info)
     const redirectUrl = AuthSession.makeRedirectUri({useProxy: true});
+    console.log(redirectUrl)
     let result = await AuthSession.startAsync({
         authUrl:
           `https://accounts.google.com/o/oauth2/auth?` +
@@ -65,6 +63,8 @@ export const LoginU = async (navigation) => {
           `&scope=${encodeURIComponent(info['scopes'].join(' '))}` + 
           `&prompt=consent`,
       });
+
+    console.log(result) 
     if (result['errorCode'] == null) {
         return fetch("https://tutor.jakegut.com/auth/swap", {
             method: 'POST',

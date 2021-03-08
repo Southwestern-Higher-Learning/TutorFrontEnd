@@ -36,17 +36,14 @@ export const HonorCodeScreen = ({route, navigation})=>{
                         style={styles.decisionBox}
                     >
                         <Button
-                        onPress={()=>{
+                        onPress={async ()=>{
                             try {
-                                LoginUser().then(response=>{
-                                    // secure store refresh token
-                                    dispatch({message: "SET", payload: response})
-                                    navigation.navigate('HomeTabs')
-                                })
+                                const user = await LoginUser()
+                                dispatch({message: "SET", payload: user})
+                                navigation.navigate('HomeTabs')
                             } catch (error) {
                                 console.log(error)
-                            }
-                            
+                            }         
                         }}
                         title="Yes"
                         />
