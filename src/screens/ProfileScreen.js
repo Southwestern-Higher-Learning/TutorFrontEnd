@@ -42,7 +42,7 @@ export const ProfileScreen = ({navigation}) => {
                         style={styles.image}
                     />
                 </View>
-                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', flex: 2}}>
+                <View style={{justifyContent: 'center', alignItems: 'center',}}>
                     <Text style={styles.userNameText}>
                         {state.user.first_name} {state.user.last_name} {state.user.is_tutor ? <Ionicons name="school" color={'black'} size={20} /> : null}
                     </Text> 
@@ -79,8 +79,6 @@ export const ProfileScreen = ({navigation}) => {
                 }}
                 />
             </View>
-            
-           
         </View>
         
     )
@@ -108,14 +106,11 @@ const styles = StyleSheet.create({
     userNameContainer: {
         flex: 2,
         flexDirection: 'row',
-        width: '100%',
         alignItems: 'center',
         justifyContent: 'space-evenly',
     },
     userImage:{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'flex-end',
+        width: 100
     },
     image: {
         height: 100,
