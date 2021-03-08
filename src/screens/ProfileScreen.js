@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, FlatList, Pressable } from 'react-native
 import { useUser } from '../providers/UserContextProvider';
 import { ReviewItem } from '../components/ReviewItem.js'
 import { CardItem } from '../components/CardItem'
+import { Ionicons } from '@expo/vector-icons';
 
 
 
@@ -43,9 +44,8 @@ export const ProfileScreen = ({navigation}) => {
                 </View>
                 <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', flex: 2}}>
                     <Text style={styles.userNameText}>
-                        {state.user.first_name} {state.user.last_name}
-                    </Text>
-                    {state.user.is_tutor? <Text style={styles.tutorText}>Southwestern academic guide</Text> : null}
+                        {state.user.first_name} {state.user.last_name} {state.user.is_tutor ? <Ionicons name="school" color={'black'} size={20} /> : null}
+                    </Text> 
                 </View> 
             </View>
             <View style={styles.buttonsContainer}>
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         alignItems: 'center',
-        justifyContent: 'space-around',
+        justifyContent: 'space-evenly',
     },
     userImage:{
         flex: 1,
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
         borderColor: '#828282'
     },
     userNameText: {
-        fontSize: 22,
+        fontSize: 24,
         fontWeight: '400',
         fontFamily: 'PlayfairDisplay'
     },
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     tutorText: {
-        fontSize: 10,
+        fontSize: 12,
         fontFamily: 'HKGroteskRegular',
         fontWeight: '300'
     }
