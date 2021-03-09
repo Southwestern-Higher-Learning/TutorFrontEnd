@@ -1,8 +1,12 @@
 import * as AuthSession from 'expo-auth-session'
 import axios from 'axios'
 
+
+
+
+
 export const LoginUser = async () => {
-    // initiate login process
+    // initiate login process with exterior request
     const info = await getInitialRequest()
     const redirectUrl = AuthSession.makeRedirectUri({useProxy: true});
     try {
@@ -17,7 +21,6 @@ export const LoginUser = async () => {
                 `&prompt=consent`,
             })
             if(result['errorCode'] === null){ // meaning there wasn't an error
-            console.log("there wasn't an error")
             return axios({
                 method: 'POST',
                 url: 'https://tutor.jakegut.com/auth/swap',
@@ -26,7 +29,12 @@ export const LoginUser = async () => {
                     'contentType': 'application/json'
                 }
             })
-            .then(res => {return res.data})
+            .then(res => {
+                // at this point we have successfully obtained the user info
+                // now we want to set the global axios authorization header with the users access_token
+                // after we set the access_token, in the updateaboutme provider, we can remove the authorization token
+                // then refactor to remove the access_token from the function that calls it
+                return res.data})
             .catch(err =>  {return Promise.reject(err)})
             }
             else{
