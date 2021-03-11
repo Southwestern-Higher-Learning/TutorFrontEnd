@@ -1,7 +1,9 @@
+import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
 import React, {useEffect} from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, Keyboard } from 'react-native';
 import { Searchbar } from 'react-native-paper'
 import {NameOrSubject} from '../components/NameOrSubject'
+import {SearchTutor} from '../providers/SearchTutor'
 
 
 export const SearchScreen = () => {
@@ -9,7 +11,26 @@ export const SearchScreen = () => {
         const onChangeSearch = query => setSearchQuery(query)
         const [isKeyboard, setIsKeyboard] = React.useState(false)
         const [isName, setIsName] = React.useState(false) // set to subject automatically, user can select to search for tutor by name
-        const [isLoading, setIsLoading] = React.useState(false)
+        const [searchState, setSearchState] = React.useState({
+            isLoading: true,
+            tutors: []
+        })
+        
+        const getTutors = async () =>{
+            try {
+                const data = await SearchTutor()
+                if(data){
+                    console.log(data)
+                    setSearchState({
+                        isLoading: false,
+                        tutors: data
+                    })
+                }
+            } catch(error){
+                console.log(error)
+            }
+        }
+        
         useEffect(()=>{
             Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
             Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
@@ -39,14 +60,12 @@ export const SearchScreen = () => {
                         value={searchQuery}
                         onSubmitEditing={()=>{
                             Keyboard.dismiss
-                            setIsLoading(true)
-                            setTimeout(()=>{setIsLoading(false)}, 2000)
-                            // need to make api call for user search
-                            
+                            // need to search through state and update UI
                         }}
                     />
                     {isKeyboard ? <NameOrSubject selectionCallBack={setIsName}/> : null}
                 </View>
+
             </View>
         )
         let loadingScreen = (
@@ -59,7 +78,7 @@ export const SearchScreen = () => {
                 </View>
             </View>
         )
-    return isLoading ? loadingScreen : loadedScreen
+    return searchState.isLoading ? loadingScreen : loadedScreen
 }
 
 const styles = StyleSheet.create({
