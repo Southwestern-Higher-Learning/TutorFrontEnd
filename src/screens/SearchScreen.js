@@ -1,9 +1,9 @@
-import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
 import React, {useEffect} from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, Keyboard } from 'react-native';
 import { Searchbar } from 'react-native-paper'
 import {NameOrSubject} from '../components/NameOrSubject'
 import {SearchTutor} from '../providers/SearchTutor'
+import {LoadingItem} from '../components/LoadingItem'
 
 
 export const SearchScreen = () => {
@@ -12,13 +12,14 @@ export const SearchScreen = () => {
         const [isKeyboard, setIsKeyboard] = React.useState(false)
         const [isName, setIsName] = React.useState(false) // set to subject automatically, user can select to search for tutor by name
         const [searchState, setSearchState] = React.useState({
-            isLoading: true,
+            isLoading: false,
             tutors: []
         })
         
-        const getTutors = async () =>{
+        const getTutors = async (searchParams) =>{
+            setSearchState({isLoading: true, tutors:[]})
             try {
-                const data = await SearchTutor()
+                const data = await SearchTutor(searchParams)
                 if(data){
                     console.log(data)
                     setSearchState({
@@ -28,13 +29,16 @@ export const SearchScreen = () => {
                 }
             } catch(error){
                 console.log(error)
+                setSearchState({
+                    isLoading: false,
+                    tutors: []
+                })
             }
         }
         
         useEffect(()=>{
             Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
             Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
-            getTutors()
 
             return ()=>{
                 Keyboard.removeAllListeners('keyboardDidShow')
@@ -61,25 +65,20 @@ export const SearchScreen = () => {
                         value={searchQuery}
                         onSubmitEditing={()=>{
                             Keyboard.dismiss
+                            getTutors({
+                                param: searchQuery.toLowerCase(),
+                                isName
+                            })
+                            
                             // need to search through state and update UI
                         }}
                     />
                     {isKeyboard ? <NameOrSubject selectionCallBack={setIsName}/> : null}
                 </View>
-
             </View>
         )
-        let loadingScreen = (
-            <View>
-                <View style={styles.headerContainer}>
-                    <Text style={styles.headerText}>Search</Text>
-                </View>
-                <View style={{paddingTop: 100}}>   
-                    <ActivityIndicator size="large" color="black" />
-                </View>
-            </View>
-        )
-    return searchState.isLoading ? loadingScreen : loadedScreen
+        
+    return searchState.isLoading ? <LoadingItem screen="Search"/> : loadedScreen
 }
 
 const styles = StyleSheet.create({
