@@ -34,6 +34,7 @@ export const SearchScreen = () => {
         useEffect(()=>{
             Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
             Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
+            getTutors()
 
             return ()=>{
                 Keyboard.removeAllListeners('keyboardDidShow')
