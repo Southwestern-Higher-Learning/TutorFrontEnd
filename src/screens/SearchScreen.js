@@ -1,17 +1,18 @@
-import React, {useEffect} from 'react';
-import { View, Text, StyleSheet, ActivityIndicator, Keyboard } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import { View, Text, StyleSheet, Keyboard, FlatList, Dimensions } from 'react-native';
 import { Searchbar } from 'react-native-paper'
 import {NameOrSubject} from '../components/NameOrSubject'
 import {SearchTutor} from '../providers/SearchTutor'
 import {LoadingItem} from '../components/LoadingItem'
+import {TutorItem} from '../components/TutorItem'
 
 
-export const SearchScreen = () => {
-        const [searchQuery, setSearchQuery] = React.useState('')
+export const SearchScreen = ({navigation}) => {
+        const [searchQuery, setSearchQuery] = useState('')
         const onChangeSearch = query => setSearchQuery(query)
-        const [isKeyboard, setIsKeyboard] = React.useState(false)
-        const [isName, setIsName] = React.useState(false) // set to subject automatically, user can select to search for tutor by name
-        const [searchState, setSearchState] = React.useState({
+        const [isKeyboard, setIsKeyboard] = useState(false)
+        const [isName, setIsName] = useState(false) // set to subject automatically, user can select to search for tutor by name
+        const [searchState, setSearchState] = useState({
             isLoading: false,
             tutors: []
         })
@@ -21,7 +22,7 @@ export const SearchScreen = () => {
             try {
                 const data = await SearchTutor(searchParams)
                 if(data){
-                    console.log(data)
+                    console.log(data.first_name)
                     setSearchState({
                         isLoading: false,
                         tutors: data
@@ -60,6 +61,7 @@ export const SearchScreen = () => {
                 </View>
                 <View>
                     <Searchbar 
+                        autoCorrect={false}
                         placeholder={isName ? "Search for tutor name" : "Search for tutor for subject"}
                         onChangeText={onChangeSearch}
                         value={searchQuery}
@@ -73,7 +75,28 @@ export const SearchScreen = () => {
                             // need to search through state and update UI
                         }}
                     />
+
                     {isKeyboard ? <NameOrSubject selectionCallBack={setIsName}/> : null}
+                    {searchState.tutors ? 
+                    
+                    <FlatList 
+                    contentContainerStyle={{paddingBottom: 300}}
+                    initialNumToRender={searchState.tutors.length+1}
+                    data={searchState.tutors}
+                    keyExtractor={result => result.profile_url}
+                    renderItem={( { item } )=>{
+                        return (
+                            <View>
+                                <TutorItem 
+                                navigation={navigation}
+                                tutor={item}
+                                />
+                            </View>
+
+                        )
+                    }}
+
+                    /> : null}
                 </View>
             </View>
         )
