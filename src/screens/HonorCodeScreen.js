@@ -40,7 +40,7 @@ export const HonorCodeScreen = ({route, navigation})=>{
                             try {
                                 const user = await LoginUser()
                                 dispatch({message: "SET", payload: user})
-                                navigation.navigate('HomeTabs')
+                                navigation.reset({index: 0, routes: [{name: 'HomeTabs' }]});
                             } catch (error) {
                                 console.log(error)
                             }         
