@@ -25,8 +25,9 @@ export const ProfileScreen = ({navigation}) => {
         id: '4'}
     ]
     const { state } = useUser()
-    // at it's current state, reviews with be a flat list and we'll iterate through the reviews to create a horizontal flat list that the user can swipe through
-    // the styling is still part way done. We think we'll use some card style for the text data. Mostly we're just working on the logic
+    // need to offload flatlist to new ui component, keep the view container, but create new ui component that we can pass the list of reviews to
+    // and generate flatlist because we need that functionality in other parts of the application
+    
 
     return (
         
