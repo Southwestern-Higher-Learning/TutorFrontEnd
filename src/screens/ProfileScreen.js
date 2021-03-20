@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, FlatList, Pressable } from 'react-native';
 import { useUser } from '../providers/UserContextProvider';
-import { ReviewItem } from '../components/ReviewItem.js'
 import { CardItem } from '../components/CardItem'
+import {TutorReviews} from '../components/TutorReviews.js'
 
 
 
@@ -25,10 +25,6 @@ export const ProfileScreen = ({navigation}) => {
         id: '4'}
     ]
     const { state } = useUser()
-    // need to offload flatlist to new ui component, keep the view container, but create new ui component that we can pass the list of reviews to
-    // and generate flatlist because we need that functionality in other parts of the application
-    
-
     return (
         
         <View style={styles.screenContainer}>
@@ -66,22 +62,10 @@ export const ProfileScreen = ({navigation}) => {
                 textContent={state.user.description}
                 cardName={"about me"}
                 />
-            </View>
-            
+            </View> 
             <View style={styles.reviewsContainer}>
-                <FlatList 
-                snapToAlignment={'top'}
-                horizontal
-                data={tempReviewList}
-                keyExtractor={result => result.id}
-                showsHorizontalScrollIndicator={false}
-                renderItem={( {item} )=>{
-                    return <ReviewItem reviewText={item.reviewText} starCount={item.starCount}/>
-                }}
-                />
+                <TutorReviews reviewList={tempReviewList} />
             </View>
-            
-           
         </View>
         
     )
