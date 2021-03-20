@@ -25,7 +25,7 @@ export const TutorItem = ({navigation, tutor})=>{
                 <PressableButton 
                 buttonText="Schedule"
                 actionOnPress={()=>{
-                    console.log(`Schedule pressed: Tutor: ${tutorState.first_name}`)
+                    navigation.navigate('Schedule', {tutorState})
                 }}
                 />
              </View>
