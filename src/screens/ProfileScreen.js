@@ -1,8 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, FlatList, Pressable } from 'react-native';
 import { useUser } from '../providers/UserContextProvider';
-import { ReviewItem } from '../components/ReviewItem.js'
 import { CardItem } from '../components/CardItem'
+import { TutorReviews } from '../components/TutorReviews.js'
+import { PressableButton } from '../components/PressableButton.js'
 
 
 
@@ -25,9 +26,6 @@ export const ProfileScreen = ({navigation}) => {
         id: '4'}
     ]
     const { state } = useUser()
-    // at it's current state, reviews with be a flat list and we'll iterate through the reviews to create a horizontal flat list that the user can swipe through
-    // the styling is still part way done. We think we'll use some card style for the text data. Mostly we're just working on the logic
-
     return (
         
         <View style={styles.screenContainer}>
@@ -49,38 +47,28 @@ export const ProfileScreen = ({navigation}) => {
                 </View> 
             </View>
             <View style={styles.buttonsContainer}>
-                <Pressable style={styles.editButton}
-                onPress={()=>{
-                    navigation.navigate('editProfile')
-                }}
-                >
-                    <Text style={styles.buttonText}>Edit</Text>
-                </Pressable>
-                <View style={styles.scheduleButton}>
-                    <Text style={styles.buttonText}>Schedule</Text>
-                </View>
+                <PressableButton
+                    buttonText="Edit"
+                    actionOnPress={()=>{
+                        navigation.navigate('editProfile')
+                    }}
+                />
+                <PressableButton
+                    buttonText="Schedule"
+                    actionOnPress={()=>{
+                       console.log("Pressed")
+                    }}
+                />
             </View>
             <View style={styles.aboutMeContainer}>
                 <CardItem 
                 textContent={state.user.description}
                 cardName={"about me"}
                 />
-            </View>
-            
+            </View> 
             <View style={styles.reviewsContainer}>
-                <FlatList 
-                snapToAlignment={'top'}
-                horizontal
-                data={tempReviewList}
-                keyExtractor={result => result.id}
-                showsHorizontalScrollIndicator={false}
-                renderItem={( {item} )=>{
-                    return <ReviewItem reviewText={item.reviewText} starCount={item.starCount}/>
-                }}
-                />
+                <TutorReviews reviewList={tempReviewList} />
             </View>
-            
-           
         </View>
         
     )
@@ -137,23 +125,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-around',
     },
-    editButton: {
-        height: 45,
-        width: '36%',
-        borderRadius: 23, 
-        backgroundColor: '#ffcd20',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    scheduleButton: {
-        height: 45,
-        width: '36%',
-        opacity: 0.9,
-        borderRadius: 23, 
-        backgroundColor: '#ffcd20',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
     aboutMeContainer: {
         flex: 2,
         width: '90%',
@@ -162,16 +133,6 @@ const styles = StyleSheet.create({
     reviewsContainer: {
         flex: 4,
         marginTop: 80,
-    },
-    reviewsText: {
-        alignItems: 'center',
-        fontSize: 20,
-        fontWeight: 'bold',
-        fontFamily: 'HKGroteskRegular',
-    },
-    buttonText: {
-        fontFamily: 'HKGroteskSemiBold',
-        fontSize: 20,
     },
     tutorText: {
         fontSize: 10,

@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {View, StyleSheet, Text, Image} from 'react-native'
 import {PressableButton} from '../components/PressableButton'
 
-
 export const TutorItem = ({navigation, tutor})=>{
 
     const [tutorState, setTutor] = useState(tutor)
@@ -25,7 +24,7 @@ export const TutorItem = ({navigation, tutor})=>{
                 <PressableButton 
                 buttonText="Schedule"
                 actionOnPress={()=>{
-                    console.log(`Schedule pressed: Tutor: ${tutorState.first_name}`)
+                    navigation.navigate('Schedule', {tutorState})
                 }}
                 />
              </View>
