@@ -6,6 +6,8 @@ import { PressableButton } from '../components/PressableButton.js'
 
 
 export const ScheduleWithTutorScreen = ({route, navigation})=>{
+    // Still need to handle what happens if a tutor has no reviews
+    // Still need to handle the tutor getting actual reviews made by students
     const tempReviewList = [
         {reviewText: "Antonia is the best tutor in the world!!",
         starCount: "☆ ☆ ☆ ☆",
@@ -20,9 +22,7 @@ export const ScheduleWithTutorScreen = ({route, navigation})=>{
 
     console.log(route.params)
     const {tutorState} = route.params
-    // need to add reviews, style page, generate calendar info, schedule with tutor
-    // need to make reviews from profile screen a separate ui component so we can use that here
-
+    
     return (
         <View style={styles.screenContainer}>
             <View style={styles.textContainer}>
@@ -36,6 +36,7 @@ export const ScheduleWithTutorScreen = ({route, navigation})=>{
                     style={styles.tutorImage}
                 />
                 <PressableButton
+                // need to generate their Google Calendar information when this button is pressed
                     buttonText='Schedule'
                     actionOnPress={()=>{
                         console.log("presssssssssssssssed")
