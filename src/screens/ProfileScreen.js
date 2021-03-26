@@ -2,7 +2,8 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, FlatList, Pressable } from 'react-native';
 import { useUser } from '../providers/UserContextProvider';
 import { CardItem } from '../components/CardItem'
-import {TutorReviews} from '../components/TutorReviews.js'
+import { TutorReviews } from '../components/TutorReviews.js'
+import { PressableButton } from '../components/PressableButton.js'
 
 
 
@@ -46,16 +47,18 @@ export const ProfileScreen = ({navigation}) => {
                 </View> 
             </View>
             <View style={styles.buttonsContainer}>
-                <Pressable style={styles.editButton}
-                onPress={()=>{
-                    navigation.navigate('editProfile')
-                }}
-                >
-                    <Text style={styles.buttonText}>Edit</Text>
-                </Pressable>
-                <View style={styles.scheduleButton}>
-                    <Text style={styles.buttonText}>Schedule</Text>
-                </View>
+                <PressableButton
+                    buttonText="Edit"
+                    actionOnPress={()=>{
+                        navigation.navigate('editProfile')
+                    }}
+                />
+                <PressableButton
+                    buttonText="Schedule"
+                    actionOnPress={()=>{
+                       console.log("Pressed")
+                    }}
+                />
             </View>
             <View style={styles.aboutMeContainer}>
                 <CardItem 
@@ -122,23 +125,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-around',
     },
-    editButton: {
-        height: 45,
-        width: '36%',
-        borderRadius: 23, 
-        backgroundColor: '#ffcd20',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    scheduleButton: {
-        height: 45,
-        width: '36%',
-        opacity: 0.9,
-        borderRadius: 23, 
-        backgroundColor: '#ffcd20',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
     aboutMeContainer: {
         flex: 2,
         width: '90%',
@@ -147,16 +133,6 @@ const styles = StyleSheet.create({
     reviewsContainer: {
         flex: 4,
         marginTop: 80,
-    },
-    reviewsText: {
-        alignItems: 'center',
-        fontSize: 20,
-        fontWeight: 'bold',
-        fontFamily: 'HKGroteskRegular',
-    },
-    buttonText: {
-        fontFamily: 'HKGroteskSemiBold',
-        fontSize: 20,
     },
     tutorText: {
         fontSize: 10,
