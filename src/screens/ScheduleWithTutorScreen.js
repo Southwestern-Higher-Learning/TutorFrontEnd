@@ -44,8 +44,6 @@ export const ScheduleWithTutorScreen = ({route, navigation})=>{
             </View>
             <View style={styles.cardContainer}>
                 <CardItem 
-                // One option is take out description and just have review when
-                // The user *
                 textContent= {tutorState.description}
                 cardName= {`About ${tutorState.first_name}`}
                 />
@@ -87,20 +85,20 @@ const styles = StyleSheet.create({
         borderColor: '#ffcd20'
     }, 
     cardContainer: {
-        flex: 1,
+        flex: 3,
         padding: 10
     },
     reviewsContainer: {
-        flex: 2,
+        flex: 3,
         marginTop: 20,
         justifyContent: 'space-between', 
         alignItems: 'center'
     }, 
     buttonContainer: {
         flex: 1,
+        flexDirection: 'row',
         width: '100%',
-        //alignItems: 'space-evenly',
-        justifyContent: 'flex-end',
-        
+        alignItems: 'center',
+        justifyContent: 'space-evenly'
     },
 })

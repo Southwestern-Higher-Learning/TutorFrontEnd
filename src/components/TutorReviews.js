@@ -10,7 +10,7 @@ export const TutorReviews = ({reviewList}) => {
             horizontal
             data={reviewList}
             keyExtractor={result=> result.id} 
-            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
             renderItem={( {item} )=> {
                 return <ReviewItem reviewText={item.reviewText} starCount={item.starCount} />
             }}
