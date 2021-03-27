@@ -1,11 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet, Text, Button} from 'react-native'
 import Hyperlink from 'react-native-hyperlink'
 import { LoginUser } from '../providers/LoginUser'
 import { useUser } from '../providers/UserContextProvider'
+import {LoadingItem} from '../components/LoadingItem'
 
 export const HonorCodeScreen = ({route, navigation})=>{
     const { dispatch } = useUser()
+    const [isLoading, setIsLoading]   = useState(false)
 
     
     return (
@@ -27,8 +29,8 @@ export const HonorCodeScreen = ({route, navigation})=>{
                     </Text>
                 </Hyperlink>
             </View>
-            
-            <View style={styles.inner}>
+            {isLoading ? <LoadingItem/> : (
+                <View style={styles.inner}>
                 <Text>
                     Do you accept?
                 </Text>
@@ -38,10 +40,12 @@ export const HonorCodeScreen = ({route, navigation})=>{
                         <Button
                         onPress={async ()=>{
                             try {
+                                setIsLoading(true)
                                 const user = await LoginUser()
                                 dispatch({message: "SET", payload: user})
                                 navigation.reset({index: 0, routes: [{name: 'HomeTabs' }]});
                             } catch (error) {
+                                setIsLoading(false)
                                 console.log(error)
                             }         
                         }}
@@ -53,6 +57,8 @@ export const HonorCodeScreen = ({route, navigation})=>{
                         />
                     </View>
                 </View>
+            )}
+            
             
             
         </View>
