@@ -15,6 +15,7 @@ export const EditProfileScreen = ({navigation})=>{
         keyboardShouldPersistTaps='handled'
         >
             <CardItem 
+            // update this language asap
             textContent={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque rhoncus nec mi quis scelerisque. In consequat libero feugiat dolor varius, ut mollis ante mollis. Morbi malesuada tincidunt risus id aliquet. Aenean condimentum, nunc a dignissim imperdiet, lacus orci ornare risus, at elementum tellus purus et quam. Sed rhoncus, elit pulvinar convallis blandit, velit dolor fermentum tortor, vitae placerat sem neque et eros."}
             cardName={"Getting Started"}
             />
@@ -40,6 +41,7 @@ export const EditProfileScreen = ({navigation})=>{
                         dispatch({message: "SET_USER", payload: response})
                         navigation.navigate('profile')
                     }
+                    // also maybe some kind of error handling
                     // load spinner icon
                     // remove spinner icon once about is loaded (this will likely happen when we update the context)
                 }}

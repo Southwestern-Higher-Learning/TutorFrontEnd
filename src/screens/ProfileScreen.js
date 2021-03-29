@@ -8,7 +8,9 @@ import { PressableButton } from '../components/PressableButton.js'
 
 
 export const ProfileScreen = ({navigation}) => {
-    const tempReviewList = [
+    // we need to actually get reviews
+    // then generate reviewList which will need to be stored in state so they can be rendered
+    const reviewList = [
         {reviewText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque rhoncus nec mi quis scelerisque. In consequat libero feugiat dolor varius, ut mollis ante mollis. Morbi malesuada tincidunt risus id aliquet. Aenean condimentum, nunc a dignissim imperdiet, lacus orci ornare risus, at elementum tellus purus et quam. Sed rhoncus, elit pulvinar convallis blandit, velit dolor fermentum tortor, vitae placerat sem neque et eros.",
         starCount: "☆ ☆ ☆ ☆",
         id: '0'},
@@ -26,6 +28,7 @@ export const ProfileScreen = ({navigation}) => {
         id: '4'}
     ]
     const { state } = useUser()
+    // we need to do some kind of state verification before rendering this page
     return (
         
         <View style={styles.screenContainer}>
@@ -54,6 +57,7 @@ export const ProfileScreen = ({navigation}) => {
                     }}
                 />
                 <PressableButton
+                    // Need to make decision about what is loaded on schedule once we have google calendar api figured out
                     buttonText="Schedule"
                     actionOnPress={()=>{
                        console.log("Pressed")
@@ -62,13 +66,15 @@ export const ProfileScreen = ({navigation}) => {
             </View>
             <View style={styles.aboutMeContainer}>
                 <CardItem 
+                // check to see if the user has updated their description, if they haven't give them a message to update it. 
                 textContent={state.user.description}
                 cardName={"about me"}
                 />
             </View> 
-            <View style={styles.reviewsContainer}>
-                <TutorReviews reviewList={tempReviewList} />
-            </View>
+            {reviewList ? (<View style={styles.reviewsContainer}> 
+                <TutorReviews reviewList={reviewList} />
+            </View>) : null /**replace this null with placeholder for when there's no reviews */}
+            
         </View>
         
     )

@@ -45,6 +45,9 @@ export const HonorCodeScreen = ({route, navigation})=>{
                                 dispatch({message: "SET", payload: user})
                                 navigation.reset({index: 0, routes: [{name: 'HomeTabs' }]});
                             } catch (error) {
+                                // need to add error handling
+                                // which errors can/will occur
+                                // what information do we want to show the user 
                                 setIsLoading(false)
                                 console.log(error)
                             }         

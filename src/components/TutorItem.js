@@ -3,7 +3,7 @@ import {View, StyleSheet, Text, Image} from 'react-native'
 import {PressableButton} from '../components/PressableButton'
 
 export const TutorItem = ({navigation, tutor})=>{
-
+    // not sure I really need to use useState here
     const [tutorState, setTutor] = useState(tutor)
 
     return (

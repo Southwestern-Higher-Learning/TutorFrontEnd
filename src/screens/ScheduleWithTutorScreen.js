@@ -20,7 +20,6 @@ export const ScheduleWithTutorScreen = ({route, navigation})=>{
         id: '2'},
     ]
 
-    console.log(route.params)
     const {tutorState} = route.params
     
     return (
