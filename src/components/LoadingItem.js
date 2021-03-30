@@ -5,7 +5,7 @@ import {ActivityIndicator, View, Text, StyleSheet} from 'react-native'
 export const LoadingItem = ({screen})=>{
     return (
         <View>
-            <View style={styles.headerContainer}>
+            <View style={styles.headerContainer}/**need to check if screen has actually been passed before rendering this */>
                 <Text style={styles.headerText}>{screen}</Text>
             </View>
             <View style={{paddingTop: 100}}>   

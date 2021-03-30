@@ -22,14 +22,15 @@ export const SearchScreen = ({navigation}) => {
             try {
                 const data = await SearchTutor(searchParams)
                 if(data){
-                    console.log(data.first_name)
                     setSearchState({
                         isLoading: false,
                         tutors: data
                     })
                 }
             } catch(error){
-                console.log(error)
+                // once again, need actually make decisions when no results are found
+                // like, why were there no results, is there more information we can give the user to make a better req
+                // or do we want to just load all tutors when we can't find one specifically
                 setSearchState({
                     isLoading: false,
                     tutors: []
@@ -71,8 +72,6 @@ export const SearchScreen = ({navigation}) => {
                                 param: searchQuery.toLowerCase(),
                                 isName
                             })
-                            
-                            // need to search through state and update UI
                         }}
                     />
 
@@ -80,7 +79,7 @@ export const SearchScreen = ({navigation}) => {
                     {searchState.tutors ? 
                     
                     <FlatList 
-                    contentContainerStyle={{paddingBottom: 300}}
+                    contentContainerStyle={{paddingBottom: 300} /**Had to add bottom padding in order for list to show the last item */}
                     initialNumToRender={searchState.tutors.length+1}
                     data={searchState.tutors}
                     keyExtractor={result => result.profile_url}
