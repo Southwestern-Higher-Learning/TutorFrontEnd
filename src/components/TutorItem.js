@@ -1,10 +1,13 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Text, Image} from 'react-native'
+import {View, StyleSheet, Text, Image, Modal, TouchableOpacity} from 'react-native'
 import {PressableButton} from '../components/PressableButton'
+import { ReportButton } from '../components/ReportButton'
 
 export const TutorItem = ({navigation, tutor})=>{
     // not sure I really need to use useState here
     const [tutorState, setTutor] = useState(tutor)
+    const [modalState, setModalState] = useState(false)
+    const onPress = () => {setModalState(false)}
 
     return (
         <View style={styles.container}>
@@ -15,20 +18,58 @@ export const TutorItem = ({navigation, tutor})=>{
                             style={styles.image}
                         />
                 </View>
-                <View style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
-                    <Text style={styles.cardNameText}>{tutorState.first_name} {tutorState.last_name}</Text>
+                <View style={{flex: 2, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                    <Text style={styles.cardNameText}>{tutorState.first_name} {tutorState.last_name} </Text>
                 </View>
             </View>
              <Text style={styles.textContentText}>{tutor.description}</Text>
-             <View style={{paddingBottom: 10, width: '100%', alignItems: 'center'}}>
+             <View style={{paddingBottom: 10, flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: 'space-around' }}>
                 <PressableButton 
                 buttonText="Schedule"
                 actionOnPress={()=>{
                     navigation.navigate('Schedule', {tutorState})
                 }}
+                /> 
+                <PressableButton 
+                buttonText="Report"
+                actionOnPress={()=>{
+                    setModalState(true)
+                }}
                 />
+                <Modal transparent={true} visible={modalState}>
+                    <View style={{flex: 1, backgroundColor: 'rgba(52, 52, 52, 0.8)'}}>
+                        <View style={styles.modalContainer}>
+                            <View style={styles.modalHeaderContainer}> 
+                                <Text style={{fontSize: 25, fontWeight: '400', fontFamily: 'PlayfairDisplay'}}> Report </Text>
+                            </View>
+                            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                                <Text style={{fontSize: 17}}>Please choose one of the options below: </Text>
+                            </View>
+                            <View style={{flex: 6, justifyContent: 'space-around', alignItems: 'center'}}>
+                                <TouchableOpacity 
+                                    style={styles.buttonStyle}
+                                    onPress={onPress}
+                                >
+                                    <Text style={{fontSize: 17}}> Inappropriate Profile Picture</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    style={styles.buttonStyle}
+                                    onPress={onPress}
+                                >
+                                    <Text style={{fontSize: 17}}> Inappropriate About Me Section</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    style={styles.buttonStyle}
+                                    onPress={onPress}
+                                >
+                                    <Text style={{fontSize: 17}}> Suspicious Profile</Text>
+                                </TouchableOpacity>
+                                
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
              </View>
-            
         
         </View>
     )
@@ -53,8 +94,6 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         borderWidth: 2,
         borderColor: '#828282'
-
-
     },
     cardNameText: {
         fontFamily: 'HKGroteskRegular',
@@ -63,6 +102,7 @@ const styles = StyleSheet.create({
         fontWeight: '300',
         textAlign: 'center',
         margin: 10,
+        flexDirection: 'row',
         
     },
     textContentContainer: {
@@ -91,5 +131,29 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: '#ffcd20',
         marginLeft: 20,
+    },
+    modalContainer:{
+        flex: 1, 
+        backgroundColor: 'white', 
+        marginVertical: 250, 
+        marginHorizontal: 40,
+        borderRadius: 30
+    },
+    modalHeaderContainer:{
+        height: 40,
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        backgroundColor: '#ffcd20',
+        borderTopRightRadius: 30,
+        borderTopLeftRadius: 30
+    },
+    buttonStyle:{
+        height: 50,
+        width: '80%', 
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#ffcd20',
+        borderRadius: 10,
     }
 })
