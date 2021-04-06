@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, Text, Image, Modal, TouchableOpacity} from 'react-native'
 import {PressableButton} from './PressableButton'
+import { Ionicons } from '@expo/vector-icons'
+import { ReportTutor } from '../providers/ReportTutor'
 
 export const TutorItem = ({navigation, tutor})=>{
     // not sure I really need to use useState here
     const [tutorState, setTutor] = useState(tutor)
     const [modalState, setModalState] = useState(false)
-    const onPress = () => {setModalState(false)}
 
     return (
         <View style={styles.container}>
@@ -40,6 +41,14 @@ export const TutorItem = ({navigation, tutor})=>{
                         <View style={styles.modalContainer}>
                             <View style={styles.modalHeaderContainer}> 
                                 <Text style={{fontSize: 25, fontWeight: '400', fontFamily: 'PlayfairDisplay'}}> Report </Text>
+                                <TouchableOpacity
+                                    style={{alignItems: 'flex-end', justifyContent: 'flex-end', marginLeft: 70, marginRight: 10}}
+                                    onPress={() =>{
+                                        setModalState(false)
+                                    }}
+                                >
+                                    <Ionicons name='close-outline' size={35} color={'white'}/>
+                                </TouchableOpacity>
                             </View>
                             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                                 <Text style={{fontSize: 17}}>Please choose one of the options below: </Text>
@@ -47,21 +56,30 @@ export const TutorItem = ({navigation, tutor})=>{
                             <View style={{flex: 6, justifyContent: 'space-around', alignItems: 'center'}}>
                                 <TouchableOpacity 
                                     style={styles.buttonStyle}
-                                    onPress={onPress}
+                                    onPress={()=>{
+                                        setModalState(false)
+                                        ReportTutor('Inappropriate Profile Picture', tutorState)
+                                    }}
                                 >
                                     <Text style={{fontSize: 17}}> Inappropriate Profile Picture</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     style={styles.buttonStyle}
-                                    onPress={onPress}
+                                    onPress={()=>{
+                                        setModalState(false)
+                                        ReportTutor('Inappropriate About Me Section', tutorState)
+                                    }}
                                 >
                                     <Text style={{fontSize: 17}}> Inappropriate About Me Section</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     style={styles.buttonStyle}
-                                    onPress={onPress}
+                                    onPress={()=>{
+                                        setModalState(false)
+                                        ReportTutor('Incorrect Profile Information', tutorState)
+                                    }}
                                 >
-                                    <Text style={{fontSize: 17}}> Suspicious Profile</Text>
+                                    <Text style={{fontSize: 17}}> Incorrect Profile Information </Text>
                                 </TouchableOpacity>
                                 
                             </View>
@@ -145,7 +163,8 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         backgroundColor: '#ffcd20',
         borderTopRightRadius: 30,
-        borderTopLeftRadius: 30
+        borderTopLeftRadius: 30,
+        flexDirection: 'row'
     },
     buttonStyle:{
         height: 50,
