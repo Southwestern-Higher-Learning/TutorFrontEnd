@@ -6,11 +6,9 @@ export const HomeScreen = () => {
     return (
         
         <View style={styles.container}>
-            <ImageBackground 
-            source={require('../../assets/LoginPage.jpg')}
-            style={styles.image}
-            blurRadius={1}
-            />
+            <View style={styles.headerContainer}>
+                <Text style={styles.headerText}>Home</Text>
+            </View>
             <View style={styles.bookedSessionsBox}>
                 <Text style={styles.textOverGradient}>Your Upcoming Sessions</Text>
                 <Text style={styles.textOverGradient}>Some other text of upcoming appointments</Text>
@@ -30,13 +28,20 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'flex-start',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: 'white'
     },
-    image: {
-        width:'100%',
-        height: '100%',
-        resizeMode: 'cover',
-        position: 'absolute'
+    headerContainer: {
+        height: 70,
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        backgroundColor: '#ffcd20',
+    },
+    headerText: {
+        fontSize: 30,
+        fontWeight: '400',
+        fontFamily: 'PlayfairDisplay',
     },
     bookedSessionsBox: {
         marginTop: '15%',
