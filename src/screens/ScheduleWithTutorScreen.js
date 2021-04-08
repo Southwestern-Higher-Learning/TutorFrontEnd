@@ -1,27 +1,15 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, Modal, Pressable } from 'react-native'
+import { View, Text, StyleSheet, Image } from 'react-native'
 import { TutorReviews } from '../components/TutorReviews.js'
 import { CardItem } from '../components/CardItem.js'
 import { PressableButton } from '../components/PressableButton.js'
+import { NoReviews } from '../components/NoReviews.js'
 
 
 export const ScheduleWithTutorScreen = ({route, navigation})=>{
-    // Still need to handle what happens if a tutor has no reviews
-    // Still need to handle the tutor getting actual reviews made by students
-    const tempReviewList = [
-        {reviewText: "Antonia is the best tutor in the world!!",
-        starCount: "☆ ☆ ☆ ☆",
-        id: '0'},
-        {reviewText: "Antonia is the reason I finally understand stuff.",
-        starCount: "☆ ☆ ☆ ☆",
-        id: '1'},
-        {reviewText: "omg someone actually taught me something.",
-        starCount: "☆ ☆ ☆ ☆",
-        id: '2'},
-    ]
-
     const {tutorState} = route.params
-    
+    console.log(tutorState.reviews)
+    console.log(tutorState)
     return (
         <View style={styles.screenContainer}>
             <View style={styles.textContainer}>
@@ -48,9 +36,11 @@ export const ScheduleWithTutorScreen = ({route, navigation})=>{
                 cardName= {`About ${tutorState.first_name}`}
                 />
             </View>
-            <View style={styles.reviewsContainer}>
-                <TutorReviews reviewList={tempReviewList}/>
-            </View>
+            {tutorState.reviews.length !== 0 ? (<View style={styles.reviewsContainer}> 
+                <TutorReviews reviewList={tutorState.reviews} />
+            </View>) : (<View style={styles.reviewsContainer}>
+                <NoReviews NoReviewsText="This guide does not currently have reviews, be the first to review after your session." />
+            </View>)}
         </View>
     )
 }
