@@ -22,7 +22,8 @@ export const ScheduleWithTutorScreen = ({route, navigation})=>{
     // ]
 
     const {tutorState} = route.params
-    
+    console.log(tutorState.reviews)
+    console.log(tutorState)
     return (
         <View style={styles.screenContainer}>
             <View style={styles.textContainer}>
@@ -49,10 +50,10 @@ export const ScheduleWithTutorScreen = ({route, navigation})=>{
                 cardName= {`About ${tutorState.first_name}`}
                 />
             </View>
-            {tutorState.reviews ? (<View style={styles.reviewsContainer}> 
+            {tutorState.reviews.length !== 0 ? (<View style={styles.reviewsContainer}> 
                 <TutorReviews reviewList={tutorState.reviews} />
             </View>) : (<View style={styles.reviewsContainer}>
-                <NoReviews NoReviewsText='You currently do not have any reviews! When students review your sessions you will be able to see what they thought!'/>
+                <NoReviews NoReviewsText="This guide does not currently have reviews, be the first to review after your session." />
             </View>)}
         </View>
     )
