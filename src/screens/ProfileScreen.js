@@ -7,31 +7,6 @@ import { PressableButton } from '../components/PressableButton.js'
 import { NoReviews } from '../components/NoReviews.js'
 
 export const ProfileScreen = ({navigation}) => {
-    // we need to actually get reviews
-    // then generate reviewList which will need to be stored in state so they can be rendered
-    const reviewList = [
-        // {reviewText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque rhoncus nec mi quis scelerisque. In consequat libero feugiat dolor varius, ut mollis ante mollis. Morbi malesuada tincidunt risus id aliquet. Aenean condimentum, nunc a dignissim imperdiet, lacus orci ornare risus, at elementum tellus purus et quam. Sed rhoncus, elit pulvinar convallis blandit, velit dolor fermentum tortor, vitae placerat sem neque et eros.",
-        // starCount: "☆ ☆ ☆ ☆",
-        // id: '0'},
-        // {reviewText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque rhoncus nec mi quis scelerisque. In consequat libero feugiat dolor varius, ut mollis ante mollis. Morbi malesuada tincidunt risus id aliquet. Aenean condimentum, nunc a dignissim imperdiet, lacus orci ornare risus, at elementum tellus purus et quam. Sed rhoncus, elit pulvinar convallis blandit, velit dolor fermentum tortor, vitae placerat sem neque et eros.",
-        // starCount: "☆ ☆ ☆ ☆",
-        // id: '1'},
-        // {reviewText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque rhoncus nec mi quis scelerisque. In consequat libero feugiat dolor varius, ut mollis ante mollis. Morbi malesuada tincidunt risus id aliquet. Aenean condimentum, nunc a dignissim imperdiet, lacus orci ornare risus, at elementum tellus purus et quam. Sed rhoncus, elit pulvinar convallis blandit, velit dolor fermentum tortor, vitae placerat sem neque et eros.",
-        // starCount: "☆ ☆ ☆ ☆",
-        // id: '2'},
-        // {reviewText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque rhoncus nec mi quis scelerisque. In consequat libero feugiat dolor varius, ut mollis ante mollis. Morbi malesuada tincidunt risus id aliquet. Aenean condimentum, nunc a dignissim imperdiet, lacus orci ornare risus, at elementum tellus purus et quam. Sed rhoncus, elit pulvinar convallis blandit, velit dolor fermentum tortor, vitae placerat sem neque et eros.",
-        // starCount: "☆ ☆ ☆ ☆",
-        // id: '3'},
-        // {reviewText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque rhoncus nec mi quis scelerisque. In consequat libero feugiat dolor varius, ut mollis ante mollis. Morbi malesuada tincidunt risus id aliquet. Aenean condimentum, nunc a dignissim imperdiet, lacus orci ornare risus, at elementum tellus purus et quam. Sed rhoncus, elit pulvinar convallis blandit, velit dolor fermentum tortor, vitae placerat sem neque et eros.",
-        // starCount: "☆ ☆ ☆ ☆",
-        // id: '4'}
-    ]
-
-    // const NoReviewsText = [
-    //     {reviewText: "Hello! You currently do not have any reviews! After each appointment users will reviewing your academic perfomance.",
-    //      starCount:"",
-    //     id: 0}
-    // ]
     const { state } = useUser()
     // we need to do some kind of state verification before rendering this page
     return (
