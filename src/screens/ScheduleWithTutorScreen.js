@@ -3,22 +3,23 @@ import { View, Text, StyleSheet, Image, Modal, Pressable } from 'react-native'
 import { TutorReviews } from '../components/TutorReviews.js'
 import { CardItem } from '../components/CardItem.js'
 import { PressableButton } from '../components/PressableButton.js'
+import { NoReviews } from '../components/NoReviews.js'
 
 
 export const ScheduleWithTutorScreen = ({route, navigation})=>{
     // Still need to handle what happens if a tutor has no reviews
     // Still need to handle the tutor getting actual reviews made by students
-    const tempReviewList = [
-        {reviewText: "Antonia is the best tutor in the world!!",
-        starCount: "☆ ☆ ☆ ☆",
-        id: '0'},
-        {reviewText: "Antonia is the reason I finally understand stuff.",
-        starCount: "☆ ☆ ☆ ☆",
-        id: '1'},
-        {reviewText: "omg someone actually taught me something.",
-        starCount: "☆ ☆ ☆ ☆",
-        id: '2'},
-    ]
+    // const tempReviewList = [
+    //     {reviewText: "Antonia is the best tutor in the world!!",
+    //     starCount: "☆ ☆ ☆ ☆",
+    //     id: '0'},
+    //     {reviewText: "Antonia is the reason I finally understand stuff.",
+    //     starCount: "☆ ☆ ☆ ☆",
+    //     id: '1'},
+    //     {reviewText: "omg someone actually taught me something.",
+    //     starCount: "☆ ☆ ☆ ☆",
+    //     id: '2'},
+    // ]
 
     const {tutorState} = route.params
     
@@ -48,9 +49,11 @@ export const ScheduleWithTutorScreen = ({route, navigation})=>{
                 cardName= {`About ${tutorState.first_name}`}
                 />
             </View>
-            <View style={styles.reviewsContainer}>
-                <TutorReviews reviewList={tempReviewList}/>
-            </View>
+            {tutorState.reviews ? (<View style={styles.reviewsContainer}> 
+                <TutorReviews reviewList={tutorState.reviews} />
+            </View>) : (<View style={styles.reviewsContainer}>
+                <NoReviews NoReviewsText='You currently do not have any reviews! When students review your sessions you will be able to see what they thought!'/>
+            </View>)}
         </View>
     )
 }
