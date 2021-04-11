@@ -8,6 +8,7 @@ import { NoReviews } from '../components/NoReviews.js'
 
 export const ProfileScreen = ({navigation}) => {
     const { state } = useUser()
+    console.log(state)
     // we need to do some kind of state verification before rendering this page
     return (
         
