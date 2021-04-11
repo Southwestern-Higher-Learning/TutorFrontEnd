@@ -1,13 +1,16 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, Text, Image, Modal, TouchableOpacity} from 'react-native'
-import {PressableButton} from './PressableButton'
+import { PressableButton } from './PressableButton'
 import { Ionicons } from '@expo/vector-icons'
 import { ReportTutor } from '../providers/ReportTutor'
+import { useUser } from '../providers/UserContextProvider'
+import { LoadingItem } from '../components/LoadingItem'
 
 export const TutorItem = ({navigation, tutor})=>{
-    // not sure I really need to use useState here
+    const { state } = useUser()
     const [tutorState, setTutor] = useState(tutor)
     const [modalState, setModalState] = useState(false)
+    const [reportLoading, setReportLoading] = useState(false)
 
     return (
         <View style={styles.container}>
@@ -57,8 +60,17 @@ export const TutorItem = ({navigation, tutor})=>{
                                 <TouchableOpacity 
                                     style={styles.buttonStyle}
                                     onPress={()=>{
-                                        setModalState(false)
-                                        ReportTutor('Inappropriate Profile Picture', tutorState)
+                                       setReportLoading(true)
+                                       ReportTutor('Inappropriate Profile Picture', tutorState, state)
+                                       .then((response) =>{
+                                           console.log(response)
+                                           setModalState(false)
+                                           setReportLoading(false)
+                                       })
+                                       .catch(err => {
+                                           setReportLoading(false)
+                                           console.log(err.status_text)
+                                       })
                                     }}
                                 >
                                     <Text style={{fontSize: 17}}> Inappropriate Profile Picture</Text>
@@ -67,7 +79,7 @@ export const TutorItem = ({navigation, tutor})=>{
                                     style={styles.buttonStyle}
                                     onPress={()=>{
                                         setModalState(false)
-                                        ReportTutor('Inappropriate About Me Section', tutorState)
+                                        ReportTutor('Inappropriate About Me Section', tutorState, state)
                                     }}
                                 >
                                     <Text style={{fontSize: 17}}> Inappropriate About Me Section</Text>
@@ -76,7 +88,7 @@ export const TutorItem = ({navigation, tutor})=>{
                                     style={styles.buttonStyle}
                                     onPress={()=>{
                                         setModalState(false)
-                                        ReportTutor('Incorrect Profile Information', tutorState)
+                                        ReportTutor('Incorrect Profile Information', tutorState, state)
                                     }}
                                 >
                                     <Text style={{fontSize: 17}}> Incorrect Profile Information </Text>
