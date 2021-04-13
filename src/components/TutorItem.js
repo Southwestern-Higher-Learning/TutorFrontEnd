@@ -40,7 +40,8 @@ export const TutorItem = ({navigation, tutor})=>{
                 }}
                 />
                 <Modal transparent={true} visible={modalState}>
-                    <View style={{flex: 1, backgroundColor: 'rgba(52, 52, 52, 0.8)'}}>
+                    {reportLoading ? (<LoadingItem />) : (
+                        <View style={{flex: 1, backgroundColor: 'rgba(52, 52, 52, 0.8)'}}>
                         <View style={styles.modalContainer}>
                             <View style={styles.modalHeaderContainer}> 
                                 <Text style={{fontSize: 25, fontWeight: '400', fontFamily: 'PlayfairDisplay'}}> Report </Text>
@@ -63,14 +64,12 @@ export const TutorItem = ({navigation, tutor})=>{
                                        setReportLoading(true)
                                        ReportTutor('Inappropriate Profile Picture', tutorState, state)
                                        .then((response) =>{
-                                           console.log(response)
                                            setModalState(false)
                                            setReportLoading(false)
                                        })
                                        .catch(err => {
                                            setReportLoading(false)
                                            setModalState(false)
-                                           console.log(err)
                                        })
                                     }}
                                 >
@@ -79,8 +78,16 @@ export const TutorItem = ({navigation, tutor})=>{
                                 <TouchableOpacity
                                     style={styles.buttonStyle}
                                     onPress={()=>{
-                                        setModalState(false)
-                                        ReportTutor('Inappropriate About Me Section', tutorState, state)
+                                        setReportLoading(true)
+                                       ReportTutor('Inappropriate about me section', tutorState, state)
+                                       .then((response) =>{
+                                           setModalState(false)
+                                           setReportLoading(false)
+                                       })
+                                       .catch(err => {
+                                           setReportLoading(false)
+                                           setModalState(false)
+                                       })
                                     }}
                                 >
                                     <Text style={{fontSize: 17}}> Inappropriate About Me Section</Text>
@@ -88,8 +95,16 @@ export const TutorItem = ({navigation, tutor})=>{
                                 <TouchableOpacity
                                     style={styles.buttonStyle}
                                     onPress={()=>{
-                                        setModalState(false)
-                                        ReportTutor('Incorrect Profile Information', tutorState, state)
+                                        setReportLoading(true)
+                                       ReportTutor('Inaccurate about me section', tutorState, state)
+                                       .then((response) =>{
+                                           setModalState(false)
+                                           setReportLoading(false)
+                                       })
+                                       .catch(err => {
+                                           setReportLoading(false)
+                                           setModalState(false)
+                                       })
                                     }}
                                 >
                                     <Text style={{fontSize: 17}}> Incorrect Profile Information </Text>
@@ -98,6 +113,8 @@ export const TutorItem = ({navigation, tutor})=>{
                             </View>
                         </View>
                     </View>
+                    )}
+                    
                 </Modal>
              </View>
         
