@@ -69,7 +69,8 @@ export const TutorItem = ({navigation, tutor})=>{
                                        })
                                        .catch(err => {
                                            setReportLoading(false)
-                                           console.log(err.status_text)
+                                           setModalState(false)
+                                           console.log(err)
                                        })
                                     }}
                                 >
