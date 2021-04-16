@@ -26,17 +26,16 @@ export const LoginScreen = ({navigation})=>{
             </View>
             
             <View style={styles.buttonContainer}>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={()=>{
-                    navigation.navigate('HonorCodeScreen', {
-                        userName: null
-                    })
-                }}
-            >
-                <Text style={styles.buttonText}>Log In</Text>
+                <TouchableOpacity
+                    onPress={()=>{
+                        navigation.navigate('HonorCodeScreen', {
+                            userName: null
+                        })
+                    }}
+                >
+                    <Image source={require('../../assets/GoogleSignIn.png')}  style={styles.button}/>
 
-            </TouchableOpacity>
+                </TouchableOpacity>
             </View>
 
         </View>
@@ -57,22 +56,11 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     button: {
-        height: 45,
-        width: '36%',
-        opacity: 0.9,
-        borderRadius: 23, 
-        backgroundColor: '#ffcd20',
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'relative',
-        top: 20
-    },
-    buttonText: {
-        fontSize: 30,
-        fontWeight: '400',
-        opacity: 1,
-        fontStyle: 'italic',
-        fontFamily: 'HKGroteskRegular',
+        flex: 1,
+        width: 200,
+        height: 200,
+        resizeMode: 'contain',
+        marginTop: 120
     },
     image: {
         width:'100%',
