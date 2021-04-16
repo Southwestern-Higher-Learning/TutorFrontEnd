@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {View, Text, StyleSheet, Pressable, ImageBackground, Image} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, ImageBackground, Image} from 'react-native';
 
 
 
@@ -26,7 +26,7 @@ export const LoginScreen = ({navigation})=>{
             </View>
             
             <View style={styles.buttonContainer}>
-            <Pressable
+            <TouchableOpacity
                 style={styles.button}
                 onPress={()=>{
                     navigation.navigate('HonorCodeScreen', {
@@ -36,7 +36,7 @@ export const LoginScreen = ({navigation})=>{
             >
                 <Text style={styles.buttonText}>Log In</Text>
 
-            </Pressable>
+            </TouchableOpacity>
             </View>
 
         </View>
