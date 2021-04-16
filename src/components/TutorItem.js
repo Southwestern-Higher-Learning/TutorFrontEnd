@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {View, StyleSheet, Text, Image, Modal, TouchableOpacity} from 'react-native'
 import {PressableButton} from './PressableButton'
 import { Ionicons } from '@expo/vector-icons'
-import { ReportTutor } from '../providers/ReportTutor'
 
 export const TutorItem = ({navigation, tutor})=>{
     // not sure I really need to use useState here
