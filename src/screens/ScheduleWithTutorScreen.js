@@ -1,22 +1,20 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, Modal, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Image } from 'react-native'
 import { TutorReviews } from '../components/TutorReviews.js'
 import { CardItem } from '../components/CardItem.js'
-import { PressableButton } from '../components/PressableButton.js'
 import { NoReviews } from '../components/NoReviews.js'
 import {Sessions} from '../providers/Sessions'
-import {Ionicons} from '@expo/vector-icons'
+import {LoadingItem} from '../components/LoadingItem'
 import {SessionEvents} from '../components/SessionEvents'
 
 
 export const ScheduleWithTutorScreen = ({route, navigation})=>{
     const {tutorState} = route.params
-    const [modalState, setModalState] = React.useState(false)
-    const [sessions, setSessions] = React.useState([])
+    const [sessions, setSessions] = React.useState({events: [], loaded: false})
     
     React.useEffect(()=>{
 
-        Sessions(tutorState.id).then(data => setSessions(data)).catch(err => console.log(err))
+        Sessions(tutorState.id).then(data => setSessions({events: data, loaded: true})).catch(err => console.log(err))
 
     }, [])
     
@@ -24,21 +22,13 @@ export const ScheduleWithTutorScreen = ({route, navigation})=>{
         <View style={styles.screenContainer}>
             <View style={styles.textContainer}>
                 <Text style={styles.welcomeText}>
-                    Schedule your appointment with {tutorState.first_name}!
+                    Join a tutoring session with {tutorState.first_name}!
                 </Text>
             </View>
             <View style={styles.buttonContainer}>
                 <Image
                     source={{uri: tutorState.profile_url}}
                     style={styles.tutorImage}
-                />
-                <PressableButton
-                // need to generate their Google Calendar information when this button is pressed
-                    buttonText='Schedule'
-                    actionOnPress={()=>{
-                        setModalState(true)
-                        
-                    }}
                 />
             </View>
             <View style={styles.cardContainer}>
@@ -52,19 +42,9 @@ export const ScheduleWithTutorScreen = ({route, navigation})=>{
             </View>) : (<View style={styles.reviewsContainer}>
                 <NoReviews NoReviewsText="This guide does not currently have reviews, be the first to review after your session." />
             </View>)}
-            <Modal
-            transparent={true}
-            visible={modalState}
-            >
-                <View style={styles.modalContainer}>
-                <TouchableOpacity
-                onPress={()=>{setModalState(false)}}
-                >
-                    <Ionicons name='close-outline' size={35} color={'white'}/>
-                </TouchableOpacity>
-                    {sessions.length == 0 ? (<Text>This guide does not have any upcoming sessions, check back in a week </Text>) : (<SessionEvents eventsList={sessions} tutor_id={tutorState.id} />)}
-                </View>
-            </Modal>
+            <View style={styles.reviewsContainer}>
+                {sessions.loaded ? <SessionEvents eventsList={sessions.events} tutor_id={tutorState.id}/> : <LoadingItem />}    
+            </View>    
         </View>
     )
 }
@@ -99,12 +79,11 @@ const styles = StyleSheet.create({
         borderColor: '#ffcd20'
     }, 
     cardContainer: {
-        flex: 3,
+        flex: 2.5,
         padding: 10
     },
     reviewsContainer: {
         flex: 3,
-        marginTop: 20,
         justifyContent: 'space-between', 
         alignItems: 'center'
     }, 
@@ -113,23 +92,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         alignItems: 'center',
-        justifyContent: 'space-evenly'
-    },
-    modalContainer:{
-        flex: 1, 
-        backgroundColor: 'rgba(0, 0, 0, 0.9)', 
-        marginVertical: 250, 
-        marginHorizontal: 40,
-        borderRadius: 30
-    },
-    modalHeaderContainer:{
-        height: 40,
-        width: '100%',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        backgroundColor: '#ffcd20',
-        borderTopRightRadius: 30,
-        borderTopLeftRadius: 30,
-        flexDirection: 'row'
-    },
+        justifyContent: 'space-evenly', 
+        paddingBottom: 10
+    }
 })

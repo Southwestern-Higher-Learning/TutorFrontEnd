@@ -1,10 +1,11 @@
 import React from 'react';
-import {FlatList} from 'react-native'
+import {View, FlatList} from 'react-native'
 import {EventItem} from './EventItem'
 
 export const SessionEvents = ({eventsList, tutor_id})=>{
     return (
-        <FlatList
+        <View>
+            <FlatList
             snapToAlignment={'top'}
             horizontal
             data={eventsList}
@@ -15,10 +16,12 @@ export const SessionEvents = ({eventsList, tutor_id})=>{
                 startTime={item.start_time}
                 sessionID={item.id}
                 tutorID={tutor_id}
-                end_time={item.end_time}
+                endTime={item.end_time}
                 summary={item.summary}
                 />
             }}
             />
+        </View>
+        
     )
 }

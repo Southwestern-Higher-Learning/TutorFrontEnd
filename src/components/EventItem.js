@@ -3,19 +3,22 @@ import {View, Text, StyleSheet} from 'react-native'
 import {PressableButton} from './PressableButton'
 
 export const EventItem = ({startTime, sessionID, tutorID, endTime, summary})=>{
+    const start = formatDateTime(startTime)
+    
+    const end = formatDateTime(endTime)
     return (
         <View style={styles.Container}>
             <View style={styles.TextContainer}>
-                <Text>Start time: {startTime}</Text>
-                <Text>End Time: {endTime}</Text>
+                <Text>Start time: {start}</Text>
+                <Text>End Time: {end}</Text>
                 <Text>Summary: {summary}</Text>
-                <PressableButton 
+            </View>
+            <PressableButton 
                 buttonText={"Add to Calendar"}
                 actionOnPress={()=>{
                     console.log(`Schedule session with session_id: ${sessionID} and tutor_id: ${tutorID}`)
                 }}
                 />
-            </View>
         </View>
     )
 }
@@ -32,9 +35,9 @@ const styles = StyleSheet.create({
         marginHorizontal: 20
     },
     TextContainer: {
-        flex: 4,
+        flex: 2,
         padding: 10,
-        justifyContent: 'center',
+        justifyContent: 'space-around',
         alignItems: 'center'
     },
     Text: {
@@ -42,3 +45,9 @@ const styles = StyleSheet.create({
         fontFamily: 'HKGroteskRegular'
     }
 })
+
+
+const formatDateTime = (datetime) =>{
+    const start = new Date(datetime)
+    return `${new Intl.DateTimeFormat('en-us', {weekday: 'short', day: '2-digit', month: 'short', hour12: true, hour: 'numeric', minute: '2-digit'}).format(start)}`
+}
