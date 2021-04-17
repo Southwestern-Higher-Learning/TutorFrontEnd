@@ -49,6 +49,7 @@ export const HonorCodeScreen = ({route, navigation})=>{
                                 // which errors can/will occur
                                 // what information do we want to show the user 
                                 setIsLoading(false)
+                                alert("There was an error")
                                 console.log(error)
                             }         
                         }}
