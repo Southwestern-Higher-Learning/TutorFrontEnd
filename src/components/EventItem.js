@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native'
-import {PressableButton} from './PressableButton'
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
+
 
 export const EventItem = ({startTime, sessionID, tutorID, endTime, summary})=>{
     const start = formatDateTime(startTime)
@@ -13,12 +13,14 @@ export const EventItem = ({startTime, sessionID, tutorID, endTime, summary})=>{
                 <Text>End Time: {end}</Text>
                 <Text>Summary: {summary}</Text>
             </View>
-            <PressableButton 
-                buttonText={"Add to Calendar"}
+            <TouchableOpacity
+                style={styles.AddButton}
                 actionOnPress={()=>{
                     console.log(`Schedule session with session_id: ${sessionID} and tutor_id: ${tutorID}`)
                 }}
-                />
+            >
+                <Text>Add to Calendar</Text>
+            </TouchableOpacity>
         </View>
     )
 }
@@ -43,6 +45,16 @@ const styles = StyleSheet.create({
     Text: {
         fontSize: 16,
         fontFamily: 'HKGroteskRegular'
+    },
+    AddButton: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 10,
+        height: 70,
+        width: 140,
+        backgroundColor: '#ffcd20',
+        marginBottom: 10,
     }
 })
 
