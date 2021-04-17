@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, ImageBackground, Image} from 'react-native';
-import {useUser} from '../providers/UserContextProvider;
+import {useUser} from '../providers/UserContextProvider'
 import {LoadingItem} from '../components/LoadingItem';
 
 
@@ -11,11 +11,12 @@ export const LoginScreen = ({navigation})=>{
 
 
     const checkAuth = async () => {
-        const isLoggedIn = checkLoggedIn();
+        const isLoggedIn = await checkLoggedIn();
         if(isLoggedIn){
             navigation.reset({index: 0, routes: [{name: 'HomeTabs' }]});
-        }
-        setIsLoading(false);
+        } else { 
+            setIsLoading(false);
+        }   
     };
     
     useEffect(() => {

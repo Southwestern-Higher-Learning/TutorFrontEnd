@@ -37,12 +37,14 @@ export const ScheduleWithTutorScreen = ({route, navigation})=>{
                 cardName= {`About ${tutorState.first_name}`}
                 />
             </View>
+            <Text style={styles.welcomeText}>Reviews</Text>
             {tutorState.reviews.length !== 0 ? (<View style={styles.reviewsContainer}> 
                 <TutorReviews reviewList={tutorState.reviews} />
             </View>) : (<View style={styles.reviewsContainer}>
                 <NoReviews NoReviewsText="This guide does not currently have reviews, be the first to review after your session." />
             </View>)}
             <View style={styles.reviewsContainer}>
+            <Text style={styles.welcomeText}>Upcoming Schedule</Text>
                 {sessions.loaded ? <SessionEvents eventsList={sessions.events} tutor_id={tutorState.id}/> : <LoadingItem />}    
             </View>    
         </View>
@@ -65,8 +67,8 @@ const styles = StyleSheet.create({
     welcomeText: {
         fontSize: 18,
         fontFamily: 'HKGroteskRegular',
-        justifyContent: 'flex-start',
-        textAlign: 'right',
+        justifyContent: 'center',
+        textAlign: 'center',
         width: '80%', 
     }, 
     tutorImage: {
