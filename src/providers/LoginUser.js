@@ -1,5 +1,6 @@
 import * as AuthSession from 'expo-auth-session'
 import axios from 'axios'
+import * as SecureStore from 'expo-secure-store'
 
 export const LoginUser = async () => {
     // initiate login process with exterior request
@@ -27,6 +28,7 @@ export const LoginUser = async () => {
             })
             .then(res => {
                 axios.defaults.headers.common['Authorization'] =  `Bearer ${res.data['access_token']}`
+                SecureStore.setItemAsync('refresh_token', res.data['refresh_token'])
                 return res.data})
             .catch(err =>  {return Promise.reject(err)})
             }
@@ -44,4 +46,25 @@ export const LoginUser = async () => {
 const getInitialRequest = async ()=>{
     const req = await axios.get('https://tutor.jakegut.com/auth/code/url')
     return req.data
+}
+
+
+export const RefreshUser = async (refreshToken) => {
+    const refreshResponse = await axios({
+        method: 'GET',
+        url: 'https://tutor.jakegut.com/auth/refresh',
+        headers: {
+            'contentType': 'application/json',
+            'Authorization': `Bearer ${refreshToken}`
+        }
+    })
+    const access_token = refreshResponse.data['access_token']
+
+    axios.defaults.headers.common['Authorization'] =  `Bearer ${access_token}`
+
+    const userResponse = await axios.get('https://tutor.jakegut.com/user/me');
+
+    const user = userResponse.data;
+    
+    return { user }
 }

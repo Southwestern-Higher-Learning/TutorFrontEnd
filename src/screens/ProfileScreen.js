@@ -1,32 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, FlatList, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Image, Linking } from 'react-native';
 import { useUser } from '../providers/UserContextProvider';
 import { CardItem } from '../components/CardItem'
 import { TutorReviews } from '../components/TutorReviews.js'
 import { PressableButton } from '../components/PressableButton.js'
-
-
+import { NoReviews } from '../components/NoReviews.js'
 
 export const ProfileScreen = ({navigation}) => {
-    // we need to actually get reviews
-    // then generate reviewList which will need to be stored in state so they can be rendered
-    const reviewList = [
-        {reviewText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque rhoncus nec mi quis scelerisque. In consequat libero feugiat dolor varius, ut mollis ante mollis. Morbi malesuada tincidunt risus id aliquet. Aenean condimentum, nunc a dignissim imperdiet, lacus orci ornare risus, at elementum tellus purus et quam. Sed rhoncus, elit pulvinar convallis blandit, velit dolor fermentum tortor, vitae placerat sem neque et eros.",
-        starCount: "☆ ☆ ☆ ☆",
-        id: '0'},
-        {reviewText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque rhoncus nec mi quis scelerisque. In consequat libero feugiat dolor varius, ut mollis ante mollis. Morbi malesuada tincidunt risus id aliquet. Aenean condimentum, nunc a dignissim imperdiet, lacus orci ornare risus, at elementum tellus purus et quam. Sed rhoncus, elit pulvinar convallis blandit, velit dolor fermentum tortor, vitae placerat sem neque et eros.",
-        starCount: "☆ ☆ ☆ ☆",
-        id: '1'},
-        {reviewText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque rhoncus nec mi quis scelerisque. In consequat libero feugiat dolor varius, ut mollis ante mollis. Morbi malesuada tincidunt risus id aliquet. Aenean condimentum, nunc a dignissim imperdiet, lacus orci ornare risus, at elementum tellus purus et quam. Sed rhoncus, elit pulvinar convallis blandit, velit dolor fermentum tortor, vitae placerat sem neque et eros.",
-        starCount: "☆ ☆ ☆ ☆",
-        id: '2'},
-        {reviewText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque rhoncus nec mi quis scelerisque. In consequat libero feugiat dolor varius, ut mollis ante mollis. Morbi malesuada tincidunt risus id aliquet. Aenean condimentum, nunc a dignissim imperdiet, lacus orci ornare risus, at elementum tellus purus et quam. Sed rhoncus, elit pulvinar convallis blandit, velit dolor fermentum tortor, vitae placerat sem neque et eros.",
-        starCount: "☆ ☆ ☆ ☆",
-        id: '3'},
-        {reviewText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque rhoncus nec mi quis scelerisque. In consequat libero feugiat dolor varius, ut mollis ante mollis. Morbi malesuada tincidunt risus id aliquet. Aenean condimentum, nunc a dignissim imperdiet, lacus orci ornare risus, at elementum tellus purus et quam. Sed rhoncus, elit pulvinar convallis blandit, velit dolor fermentum tortor, vitae placerat sem neque et eros.",
-        starCount: "☆ ☆ ☆ ☆",
-        id: '4'}
-    ]
     const { state } = useUser()
     // we need to do some kind of state verification before rendering this page
     return (
@@ -60,7 +40,7 @@ export const ProfileScreen = ({navigation}) => {
                     // Need to make decision about what is loaded on schedule once we have google calendar api figured out
                     buttonText="Schedule"
                     actionOnPress={()=>{
-                       console.log("Pressed")
+                        state.user.is_tutor ? openGoogleCalendar() : sendToSearch(navigation);
                     }}
                 />
             </View>
@@ -71,10 +51,11 @@ export const ProfileScreen = ({navigation}) => {
                 cardName={"about me"}
                 />
             </View> 
-            {reviewList ? (<View style={styles.reviewsContainer}> 
-                <TutorReviews reviewList={reviewList} />
-            </View>) : null /**replace this null with placeholder for when there's no reviews */}
-            
+            {state.reviews ? (<View style={styles.reviewsContainer}> 
+                <TutorReviews reviewList={state.reviews} />
+            </View>) : (<View style={styles.reviewsContainer}>
+                <NoReviews NoReviewsText='You currently do not have any reviews! When students review your sessions you will be able to see what they thought!' />
+            </View>)}
         </View>
         
     )
@@ -88,7 +69,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FBFBF8',
     },
     headerContainer: {
-        flex: 1,
+        height: 70,
         width: '100%',
         alignItems: 'center',
         justifyContent: 'flex-end',
@@ -146,3 +127,14 @@ const styles = StyleSheet.create({
         fontWeight: '300'
     }
 })
+
+
+const sendToSearch = (navigation)=>{
+
+    navigation.navigate('Search')
+    
+}
+
+const openGoogleCalendar = ()=>{
+    Linking.openURL('https://calendar.google.com').catch(err => console.log(err))
+}

@@ -8,7 +8,9 @@ export const HomeScreen = () => {
         
         <View style={styles.container}>
             <View style={styles.headerContainer}>
-                <Text style={styles.headerText}>Home Screen</Text>
+
+                <Text style={styles.headerText}>Home</Text>
+
             </View>
             <View style={styles.bookedSessionsBox}>
                 <Text style={styles.textOverGradient}>Your Upcoming Sessions</Text>

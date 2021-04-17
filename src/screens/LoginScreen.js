@@ -1,14 +1,31 @@
-import React from 'react';
-
-import {View, Text, StyleSheet, Pressable, ImageBackground, Image} from 'react-native';
+import React, {useEffect} from 'react';
+import {View, Text, StyleSheet, TouchableOpacity, ImageBackground, Image} from 'react-native';
+import {useUser} from '../providers/UserContextProvider'
+import {LoadingItem} from '../components/LoadingItem';
 
 
 
 export const LoginScreen = ({navigation})=>{
+    const {checkLoggedIn} = useUser()
+    const [isLoading, setIsLoading] = React.useState(true)
 
 
+    const checkAuth = async () => {
+        const isLoggedIn = await checkLoggedIn();
+        if(isLoggedIn){
+            navigation.reset({index: 0, routes: [{name: 'HomeTabs' }]});
+        } else { 
+            setIsLoading(false);
+        }   
+    };
+    
+    useEffect(() => {
+        checkAuth()
 
-    return (
+    }, []);
+    
+
+    return isLoading ? (<LoadingItem />) : (
         <View style={styles.container}>
             <ImageBackground
                 source={require('../../assets/LoginPage.jpg')}
@@ -24,19 +41,18 @@ export const LoginScreen = ({navigation})=>{
                 style={styles.logo}
             />
             </View>
-            
-            <View style={styles.buttonContainer}>
-            <Pressable
-                style={styles.button}
-                onPress={()=>{
-                    navigation.navigate('HonorCodeScreen', {
-                        userName: null
-                    })
-                }}
-            >
-                <Text style={styles.buttonText}>Log In</Text>
 
-            </Pressable>
+            <View style={styles.buttonContainer}>
+                <TouchableOpacity
+                    onPress={()=>{
+                        navigation.navigate('HonorCodeScreen', {
+                            userName: null
+                        })
+                    }}
+                >
+                    <Image source={require('../../assets/GoogleSignIn.png')}  style={styles.button}/>
+
+                </TouchableOpacity>
             </View>
 
         </View>
@@ -57,22 +73,11 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     button: {
-        height: 45,
-        width: '36%',
-        opacity: 0.9,
-        borderRadius: 23, 
-        backgroundColor: '#ffcd20',
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'relative',
-        top: 20
-    },
-    buttonText: {
-        fontSize: 30,
-        fontWeight: '400',
-        opacity: 1,
-        fontStyle: 'italic',
-        fontFamily: 'HKGroteskRegular',
+        flex: 1,
+        width: 200,
+        height: 200,
+        resizeMode: 'contain',
+        marginTop: 120
     },
     image: {
         width:'100%',

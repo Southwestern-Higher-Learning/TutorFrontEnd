@@ -1,45 +1,34 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, Modal, Pressable } from 'react-native'
+import { View, Text, StyleSheet, Image } from 'react-native'
 import { TutorReviews } from '../components/TutorReviews.js'
 import { CardItem } from '../components/CardItem.js'
-import { PressableButton } from '../components/PressableButton.js'
+import { NoReviews } from '../components/NoReviews.js'
+import {Sessions} from '../providers/Sessions'
+import {LoadingItem} from '../components/LoadingItem'
+import {SessionEvents} from '../components/SessionEvents'
 
 
 export const ScheduleWithTutorScreen = ({route, navigation})=>{
-    // Still need to handle what happens if a tutor has no reviews
-    // Still need to handle the tutor getting actual reviews made by students
-    const tempReviewList = [
-        {reviewText: "Antonia is the best tutor in the world!!",
-        starCount: "☆ ☆ ☆ ☆",
-        id: '0'},
-        {reviewText: "Antonia is the reason I finally understand stuff.",
-        starCount: "☆ ☆ ☆ ☆",
-        id: '1'},
-        {reviewText: "omg someone actually taught me something.",
-        starCount: "☆ ☆ ☆ ☆",
-        id: '2'},
-    ]
-
     const {tutorState} = route.params
+    const [sessions, setSessions] = React.useState({events: [], loaded: false})
+    
+    React.useEffect(()=>{
+
+        Sessions(tutorState.id).then(data => setSessions({events: data, loaded: true})).catch(err => console.log(err))
+
+    }, [])
     
     return (
         <View style={styles.screenContainer}>
             <View style={styles.textContainer}>
                 <Text style={styles.welcomeText}>
-                    Schedule your appointment with {tutorState.first_name}!
+                    Join a tutoring session with {tutorState.first_name}!
                 </Text>
             </View>
             <View style={styles.buttonContainer}>
                 <Image
                     source={{uri: tutorState.profile_url}}
                     style={styles.tutorImage}
-                />
-                <PressableButton
-                // need to generate their Google Calendar information when this button is pressed
-                    buttonText='Schedule'
-                    actionOnPress={()=>{
-                        console.log("presssssssssssssssed")
-                    }}
                 />
             </View>
             <View style={styles.cardContainer}>
@@ -48,9 +37,16 @@ export const ScheduleWithTutorScreen = ({route, navigation})=>{
                 cardName= {`About ${tutorState.first_name}`}
                 />
             </View>
+            <Text style={styles.welcomeText}>Reviews</Text>
+            {tutorState.reviews.length !== 0 ? (<View style={styles.reviewsContainer}> 
+                <TutorReviews reviewList={tutorState.reviews} />
+            </View>) : (<View style={styles.reviewsContainer}>
+                <NoReviews NoReviewsText="This guide does not currently have reviews, be the first to review after your session." />
+            </View>)}
             <View style={styles.reviewsContainer}>
-                <TutorReviews reviewList={tempReviewList}/>
-            </View>
+            <Text style={styles.welcomeText}>Upcoming Schedule</Text>
+                {sessions.loaded ? <SessionEvents eventsList={sessions.events} tutor_id={tutorState.id}/> : <LoadingItem />}    
+            </View>    
         </View>
     )
 }
@@ -71,8 +67,8 @@ const styles = StyleSheet.create({
     welcomeText: {
         fontSize: 18,
         fontFamily: 'HKGroteskRegular',
-        justifyContent: 'flex-start',
-        textAlign: 'right',
+        justifyContent: 'center',
+        textAlign: 'center',
         width: '80%', 
     }, 
     tutorImage: {
@@ -85,12 +81,11 @@ const styles = StyleSheet.create({
         borderColor: '#ffcd20'
     }, 
     cardContainer: {
-        flex: 3,
+        flex: 2.5,
         padding: 10
     },
     reviewsContainer: {
         flex: 3,
-        marginTop: 20,
         justifyContent: 'space-between', 
         alignItems: 'center'
     }, 
@@ -99,6 +94,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         alignItems: 'center',
-        justifyContent: 'space-evenly'
-    },
+        justifyContent: 'space-evenly', 
+        paddingBottom: 10
+    }
 })
