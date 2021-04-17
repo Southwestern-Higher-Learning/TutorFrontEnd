@@ -5,6 +5,7 @@ import {useUser} from '../providers/UserContextProvider'
 import {LoadingItem} from '../components/LoadingItem'
 import {Sessions} from '../providers/Sessions'
 import {SessionEvents} from '../components/SessionEvents'
+import Icons from '@expo/vector-icons'
 
 
 export const HomeScreen = () => {
@@ -28,7 +29,8 @@ export const HomeScreen = () => {
 
             </View>
             <View style={styles.bookedSessionsBox}>
-                <Text style={styles.textOverGradient}>Your Upcoming Sessions</Text>
+                <Text style={styles.textOverGradient}>Upcoming Sessions</Text>
+                   {/* <Icons name="calendar-outline"/> DOES NOT WORK */}
                     <View style={styles.eventContainer}>
                         {screenState.loaded ? 
                         (<SessionEvents 
@@ -40,16 +42,13 @@ export const HomeScreen = () => {
             </View>
             <View style={styles.helpfulInfo}>
                 <Text style={styles.textOverGradient}>Additional Resources</Text>
-                    <View>
-                    <HyperLink
+                <HyperLink
                      linkDefault={true}
                      linkText={ url => url === 'https://southwestern.az1.qualtrics.com/jfe/form/SV_9nT4SX4cpdiWGG1' ? 'Survey for courses you think should provide tutoring' : url}>
                        <Text style={styles.linkText}>
                         https://southwestern.az1.qualtrics.com/jfe/form/SV_9nT4SX4cpdiWGG1
                        </Text>
                     </HyperLink>
-                    </View>
-                    
                 <View>
                     <Text style={styles.textOverGradient}>Before meeting with your consultant </Text>
                 </View>
@@ -84,13 +83,13 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         height: 200,
         width: '85%',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        // backgroundColor: 'rgba(0, 0, 0, 0.5)',
         justifyContent: 'space-around',
         alignItems: 'center'
     },
     textOverGradient: {
         paddingTop: 10,
-        color: 'white', 
+        fontSize: 16,
         fontFamily: 'HKGroteskRegular'
     },
     helpfulInfo: {
@@ -98,14 +97,14 @@ const styles = StyleSheet.create({
         marginTop: 15,
         width: '85%',
         height: 400,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        // backgroundColor: 'rgba(0, 0, 0, 0.5)',
         justifyContent: 'space-around',
         alignItems: 'center',
         borderRadius: 10,
         marginBottom: 10
     }, 
     linkText: {
-        fontSize: 12, 
+        fontSize: 14, 
         fontWeight: '300', 
         textAlign: 'justify', 
         color: 'blue', 
