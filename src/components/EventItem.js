@@ -11,9 +11,10 @@ export const EventItem = ({startTime, sessionID, tutorID, endTime, summary})=>{
             <View style={styles.TextContainer}>
                 <Text>Start time: {start}</Text>
                 <Text>End Time: {end}</Text>
-                <Text>Summary: {summary}</Text>
+                <Text>Event: {summary}</Text>
             </View>
-            <TouchableOpacity
+            {tutorID ? (
+                <TouchableOpacity
                 style={styles.AddButton}
                 actionOnPress={()=>{
                     console.log(`Schedule session with session_id: ${sessionID} and tutor_id: ${tutorID}`)
@@ -21,6 +22,8 @@ export const EventItem = ({startTime, sessionID, tutorID, endTime, summary})=>{
             >
                 <Text>Add to Calendar</Text>
             </TouchableOpacity>
+            ) : null}
+            
         </View>
     )
 }

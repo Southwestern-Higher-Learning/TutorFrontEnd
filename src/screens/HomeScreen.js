@@ -2,11 +2,22 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import HyperLink from 'react-native-hyperlink';
 import {useUser} from '../providers/UserContextProvider'
+import {LoadingItem} from '../components/LoadingItem'
+import {Sessions} from '../providers/Sessions'
+import {SessionEvents} from '../components/SessionEvents'
 
 
 export const HomeScreen = () => {
 
     const { state } = useUser()
+    const [screenState, setScreenState] = React.useState({loaded: false, events: []})
+
+    React.useEffect(()=>{
+
+        Sessions(state.user.id).then(data => setScreenState({loaded: true, events: data})).catch(err => console.log(err))
+
+    }, [])
+
 
     return (
         
@@ -18,7 +29,14 @@ export const HomeScreen = () => {
             </View>
             <View style={styles.bookedSessionsBox}>
                 <Text style={styles.textOverGradient}>Your Upcoming Sessions</Text>
-                <Text style={styles.textOverGradient}>Some other text of upcoming appointments</Text>
+                    <View style={styles.eventContainer}>
+                        {screenState.loaded ? 
+                        (<SessionEvents 
+                        eventsList={screenState.events}
+                        tutor_id={false}/>) : 
+                        (<LoadingItem />)}
+                    </View>
+                
             </View>
             <View style={styles.helpfulInfo}>
                 <Text style={styles.textOverGradient}>Additional Resources</Text>
@@ -71,6 +89,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     textOverGradient: {
+        paddingTop: 10,
         color: 'white', 
         fontFamily: 'HKGroteskRegular'
     },
@@ -93,5 +112,8 @@ const styles = StyleSheet.create({
         position: 'relative', 
         justifyContent: 'center',
         fontFamily: 'HKGroteskRegular'
+    },
+    eventContainer: {
+        paddingTop: 20
     }
 })
