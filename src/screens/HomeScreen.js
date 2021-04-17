@@ -1,9 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import HyperLink from 'react-native-hyperlink';
+import {useUser} from '../providers/UserContextProvider'
 
 
 export const HomeScreen = () => {
+
+    const { state } = useUser()
+
     return (
         
         <View style={styles.container}>
