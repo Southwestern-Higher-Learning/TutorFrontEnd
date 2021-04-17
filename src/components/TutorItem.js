@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import {View, StyleSheet, Text, Image, Modal, TouchableOpacity} from 'react-native'
 import { PressableButton } from './PressableButton'
 import { Ionicons } from '@expo/vector-icons'
-import { ReportTutor } from '../providers/ReportTutor'
 import { useUser } from '../providers/UserContextProvider'
 import { LoadingItem } from '../components/LoadingItem'
+
 
 export const TutorItem = ({navigation, tutor})=>{
     const { state } = useUser()

@@ -1,15 +1,15 @@
 import React from 'react';
-import {Pressable, Text, StyleSheet} from 'react-native'
+import {TouchableOpacity, Text, StyleSheet} from 'react-native'
 
 
 export const PressableButton = ({buttonText, actionOnPress})=>{
     return (
-        <Pressable
+        <TouchableOpacity
         style={styles.scheduleButton}
         onPress={actionOnPress}
         >
             <Text>{buttonText}</Text>
-        </Pressable>
+        </TouchableOpacity>
     )
 }
 
