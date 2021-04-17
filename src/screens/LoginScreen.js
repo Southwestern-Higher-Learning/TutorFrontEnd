@@ -1,14 +1,30 @@
-import React from 'react';
-
+import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, ImageBackground, Image} from 'react-native';
+import {useUser} from '../providers/UserContextProvider;
+import {LoadingItem} from '../components/LoadingItem';
 
 
 
 export const LoginScreen = ({navigation})=>{
+    const {checkLoggedIn} = useUser()
+    const [isLoading, setIsLoading] = React.useState(true)
 
 
+    const checkAuth = async () => {
+        const isLoggedIn = checkLoggedIn();
+        if(isLoggedIn){
+            navigation.reset({index: 0, routes: [{name: 'HomeTabs' }]});
+        }
+        setIsLoading(false);
+    };
+    
+    useEffect(() => {
+        checkAuth()
 
-    return (
+    }, []);
+    
+
+    return isLoading ? (<LoadingItem />) : (
         <View style={styles.container}>
             <ImageBackground
                 source={require('../../assets/LoginPage.jpg')}
@@ -24,7 +40,7 @@ export const LoginScreen = ({navigation})=>{
                 style={styles.logo}
             />
             </View>
-            
+
             <View style={styles.buttonContainer}>
                 <TouchableOpacity
                     onPress={()=>{
