@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, Linking } from 'react-native';
 import { useUser } from '../providers/UserContextProvider';
 import { CardItem } from '../components/CardItem'
 import { TutorReviews } from '../components/TutorReviews.js'
@@ -8,7 +8,6 @@ import { NoReviews } from '../components/NoReviews.js'
 
 export const ProfileScreen = ({navigation}) => {
     const { state } = useUser()
-    console.log(state)
     // we need to do some kind of state verification before rendering this page
     return (
         
@@ -41,7 +40,7 @@ export const ProfileScreen = ({navigation}) => {
                     // Need to make decision about what is loaded on schedule once we have google calendar api figured out
                     buttonText="Schedule"
                     actionOnPress={()=>{
-                       console.log("Pressed")
+                        state.user.is_tutor ? openGoogleCalendar() : sendToSearch(navigation);
                     }}
                 />
             </View>
@@ -128,3 +127,14 @@ const styles = StyleSheet.create({
         fontWeight: '300'
     }
 })
+
+
+const sendToSearch = (navigation)=>{
+
+    navigation.navigate('Search')
+    
+}
+
+const openGoogleCalendar = ()=>{
+    Linking.openURL('https://calendar.google.com').catch(err => console.log(err))
+}
