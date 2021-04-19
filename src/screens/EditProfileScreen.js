@@ -18,7 +18,7 @@ export const EditProfileScreen = ({navigation})=>{
         >
             <CardItem 
             // update this language asap
-            textContent={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque rhoncus nec mi quis scelerisque. In consequat libero feugiat dolor varius, ut mollis ante mollis. Morbi malesuada tincidunt risus id aliquet. Aenean condimentum, nunc a dignissim imperdiet, lacus orci ornare risus, at elementum tellus purus et quam. Sed rhoncus, elit pulvinar convallis blandit, velit dolor fermentum tortor, vitae placerat sem neque et eros."}
+            textContent={state.user.is_tutor ? tutorText : studentText}
             cardName={"Getting Started"}
             />
 
@@ -37,7 +37,6 @@ export const EditProfileScreen = ({navigation})=>{
                             actionOnPress={async()=>{
                                 // make http req (patch) to update about me
                                 const response = await UpdateDescription(textValue, state.access_token)
-                                console.log(response)
                                 if(response){
                                     try{
                                         setIsLoading(true)
@@ -46,7 +45,6 @@ export const EditProfileScreen = ({navigation})=>{
                                     } catch (error) {
                                         // add better error handling
                                         setIsLoading(false)
-                                        console.log(error)
                                     }
                                 }
                             }}
@@ -56,6 +54,10 @@ export const EditProfileScreen = ({navigation})=>{
         </ScrollView>
     )
 }
+
+const tutorText = "For tutors it's important to have an accurate about me that contains the following: Which courses you tutor, where you are physically located when you are tutoring, and any other information you're willing to share about you."
+const studentText = "Updating you're about me is a great way to convey you're learning style."
+
 
 const styles = StyleSheet.create({
     container: {
