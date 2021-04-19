@@ -2,11 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import HyperLink from 'react-native-hyperlink';
 import {useUser} from '../providers/UserContextProvider'
-import {LoadingItem} from '../components/LoadingItem'
 import {Sessions} from '../providers/Sessions'
-import {SessionEvents} from '../components/SessionEvents'
-import Icons from '@expo/vector-icons'
-import { Value } from 'react-native-reanimated';
 
 
 export const HomeScreen = () => {
@@ -33,15 +29,6 @@ export const HomeScreen = () => {
                 <Text style={styles.textOverGradient}>Welcome!  This app will let you search for an academic guide, book a study
                     session with an academic guide, or find a guide in a course/subject! Make sure to customize your
                     about me then be sure to book some sessions.</Text>
-
-                    {/* <View style={styles.eventContainer}>
-                        {screenState.loaded ? 
-                        (<SessionEvents 
-                        eventsList={screenState.events}
-                        tutor_id={false}/>) : 
-                        (<LoadingItem />)}
-                    </View>
-                 */}
             </View>
             <View style={styles.helpfulInfo}>
                 <Text style={styles.text}>Additional Resources</Text>
@@ -123,7 +110,4 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         fontFamily: 'HKGroteskRegular'
     },
-    eventContainer: {
-        paddingTop: 20
-    }
 })
