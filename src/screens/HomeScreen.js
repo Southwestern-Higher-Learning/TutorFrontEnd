@@ -2,10 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import HyperLink from 'react-native-hyperlink';
 import {useUser} from '../providers/UserContextProvider'
-import {LoadingItem} from '../components/LoadingItem'
 import {Sessions} from '../providers/Sessions'
-import {SessionEvents} from '../components/SessionEvents'
-import Icons from '@expo/vector-icons'
 
 
 export const HomeScreen = () => {
@@ -29,19 +26,12 @@ export const HomeScreen = () => {
 
             </View>
             <View style={styles.bookedSessionsBox}>
-                <Text style={styles.textOverGradient}>Upcoming Sessions</Text>
-                   {/* <Icons name="calendar-outline"/> DOES NOT WORK */}
-                    <View style={styles.eventContainer}>
-                        {screenState.loaded ? 
-                        (<SessionEvents 
-                        eventsList={screenState.events}
-                        tutor_id={false}/>) : 
-                        (<LoadingItem />)}
-                    </View>
-                
+                <Text style={styles.textOverGradient}>Welcome!  This app will let you search for an academic guide, book a study
+                    session with an academic guide, or find a guide in a course/subject! Make sure to customize your
+                    about me then be sure to book some sessions.</Text>
             </View>
             <View style={styles.helpfulInfo}>
-                <Text style={styles.textOverGradient}>Additional Resources</Text>
+                <Text style={styles.text}>Additional Resources</Text>
                 <HyperLink
                      linkDefault={true}
                      linkText={ url => url === 'https://southwestern.az1.qualtrics.com/jfe/form/SV_9nT4SX4cpdiWGG1' ? 'Survey for courses you think should provide tutoring' : url}>
@@ -50,7 +40,7 @@ export const HomeScreen = () => {
                        </Text>
                     </HyperLink>
                 <View>
-                    <Text style={styles.textOverGradient}>Before meeting with your consultant </Text>
+                    <Text style={styles.text}>Before meeting with your consultant </Text>
                 </View>
             </View>
         </View>
@@ -83,14 +73,22 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         height: 200,
         width: '85%',
-        // backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        backgroundColor: '#828282',
         justifyContent: 'space-around',
         alignItems: 'center'
     },
     textOverGradient: {
+        marginHorizontal: 20,
+        fontSize: 16,
+        fontFamily: 'HKGroteskRegular', 
+        color: 'white',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    text: {
         paddingTop: 10,
         fontSize: 16,
-        fontFamily: 'HKGroteskRegular'
+        fontFamily: 'HKGroteskRegular', 
     },
     helpfulInfo: {
         flex: 4,
@@ -112,7 +110,4 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         fontFamily: 'HKGroteskRegular'
     },
-    eventContainer: {
-        paddingTop: 20
-    }
 })
