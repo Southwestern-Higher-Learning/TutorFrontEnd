@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 export const SearchTutor = (searchParam) => {
-    console.log(searchParam)
     if(searchParam){
 
         if(searchParam.isName){
