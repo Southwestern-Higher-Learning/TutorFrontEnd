@@ -4,7 +4,8 @@ import {ActivityIndicator, View, Text, StyleSheet} from 'react-native'
 
 export const LoadingItem = ({screen})=>{
     return (
-        <View>
+        screen ? (
+            <View>
             <View style={styles.headerContainer}/**need to check if screen has actually been passed before rendering this */>
                 <Text style={styles.headerText}>{screen}</Text>
             </View>
@@ -12,6 +13,11 @@ export const LoadingItem = ({screen})=>{
                 <ActivityIndicator size="large" color="black" />
             </View>
         </View>
+        ) : (
+            <View style={{paddingTop: 100}}>   
+                <ActivityIndicator size="large" color="black" />
+            </View>
+        )
     )
 }
 

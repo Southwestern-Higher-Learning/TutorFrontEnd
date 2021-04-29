@@ -181,8 +181,8 @@ const styles = StyleSheet.create({
     },
     modalContainer:{
         flex: 1, 
-        backgroundColor: 'white', 
-        marginVertical: 250, 
+        backgroundColor: 'white',
+        marginVertical: 60,
         marginHorizontal: 40,
         borderRadius: 30
     },

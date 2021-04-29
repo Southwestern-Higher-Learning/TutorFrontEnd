@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
+import {AddToSession} from '../providers/Sessions'
 
 
 export const EventItem = ({startTime, sessionID, tutorID, endTime, summary})=>{
@@ -11,16 +12,20 @@ export const EventItem = ({startTime, sessionID, tutorID, endTime, summary})=>{
             <View style={styles.TextContainer}>
                 <Text>Start time: {start}</Text>
                 <Text>End Time: {end}</Text>
-                <Text>Summary: {summary}</Text>
+                <Text>Event: {summary}</Text>
             </View>
-            <TouchableOpacity
+            {tutorID ? (
+                <TouchableOpacity
                 style={styles.AddButton}
-                actionOnPress={()=>{
-                    console.log(`Schedule session with session_id: ${sessionID} and tutor_id: ${tutorID}`)
+                onPress={()=>{
+                    console.log("adding?")
+                    AddToSession(sessionID, tutorID).then(res => console.log(res)).catch(err => console.log(err.message))
                 }}
             >
                 <Text>Add to Calendar</Text>
             </TouchableOpacity>
+            ) : null}
+            
         </View>
     )
 }
